@@ -92,10 +92,7 @@
 #pragma mark -
 
 -(NSString*)commentedAddress{
-    if (self.addressComment){
-        return [NSString stringWithFormat:@"%@ <%@@%@>",self.addressComment,self.userName, self.domain];
-    }
-    return [self userAtDomain];
+    return self.addressComment?[NSString stringWithFormat:@"%@ <%@>",self.addressComment,self.userAtDomain]:self.userAtDomain;
 }
 
 -(NSString *)description{
@@ -107,9 +104,7 @@
 }
 
 -(NSString*)displayName{
-    NSString * address =self.addressComment;
-    if (!address) address = self.userAtDomain;
-    return address;
+    return self.addressComment?:self.userAtDomain;
 }
 @end
 
