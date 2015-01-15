@@ -44,9 +44,16 @@
 }
 -(BOOL)scanCommentFoldingWhiteSpace{
     NSUInteger startLocation = self.scanLocation;
-    
+    NSInteger lastLocation = -1;
     while ([self scanFoldingWhiteSpace] ||
            [self scanCommentIntoString:nil error:nil]){
+        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
+        
         if ([self isAtEnd]){
             break;
         }
@@ -73,7 +80,7 @@
 }
 
 -(BOOL)scanWordIntoString:(NSString**)returnString{
-    NSUInteger startLocation = self.scanLocation;
+   NSUInteger  startLocation = self.scanLocation;
     [self scanCommentFoldingWhiteSpace];
     if ([self currentCharacter]=='"'){
         NSString * quotedString = nil;
@@ -92,7 +99,15 @@
     NSUInteger startLocation = self.scanLocation;
     NSMutableString * mstr = [NSMutableString string];
     NSString * scannedString = nil;
+    NSInteger lastLocation = -1;
     while([self scanWordIntoString:&scannedString]){
+        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
+
         if (scannedString){
             [mstr appendString:scannedString];
             BOOL hasAddedSpace = NO;
@@ -100,8 +115,16 @@
                 [mstr appendString:@" "];
                 hasAddedSpace= YES;
             }
-            
+            NSInteger lastLocation = -1;
             while([self scanCommentIntoString:nil error:nil])
+                // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+                if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+                    // clear the reference parameters if they have been set
+                    self.scanLocation = startLocation;
+                    return NO;
+                }
+                lastLocation = (NSInteger)self.scanLocation;
+
                 if ([self scanFoldingWhiteSpace] && !hasAddedSpace){
                     [mstr appendString:@" "];
                     hasAddedSpace = YES;
@@ -117,8 +140,15 @@
                 [mstr appendString:@" "];
                 hasAddedSpace= YES;
             }
-            
+            NSInteger lastLocation = -1;
             while([self scanCommentIntoString:nil error:nil])
+                // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+                if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+                    // clear the reference parameters if they have been set
+                    self.scanLocation = startLocation;
+                    return NO;
+                }
+                lastLocation = (NSInteger)self.scanLocation;
                 if ([self scanFoldingWhiteSpace] && !hasAddedSpace){
                     [mstr appendString:@" "];
                     hasAddedSpace = YES;
@@ -183,8 +213,16 @@
     
     BOOL quoteClosed = NO;
     NSMutableString * quotedText = [NSMutableString string];
-    
+    NSInteger lastLocation = -1;
     while(![self isAtEnd]){
+        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            self.scanLocation = startLocation;
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
+        
         NSString * scannedText = nil;
         if ([self scanCharactersFromSet:[NSCharacterSet rfc2822QTextSet] intoString:&scannedText]){
             [quotedText appendString:scannedText];
@@ -230,8 +268,16 @@
     }
     NSMutableString * comment = [NSMutableString string];
     BOOL closedParenthesis = NO;
-    
+    NSInteger lastLocation = -1;
     while(![self isAtEnd]){
+        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            self.scanLocation = startLocation;
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
+        
         if ([self scanFoldingWhiteSpace]){
             [comment appendString:@" "];
             continue;
@@ -314,7 +360,15 @@
     }
     
     BOOL closeAngular = NO;
+    NSInteger lastLocation = -1;
     while(![self isAtEnd]){
+        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            self.scanLocation = startLocation;
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
         
         NSError * addrSpecError = nil;
         if ([self scanAddrSpecIntoLocalName:localNameString domain:domainString error:&addrSpecError]){
@@ -459,7 +513,22 @@
     NSUInteger startLocation = self.scanLocation;
     NSError * internalError = nil;
     BOOL foundDelimiter = NO;
+    
+    NSInteger lastLocation = -1;
     while(![self isAtEnd] && !internalError && !foundDelimiter){
+        
+        // each pass of the scan loop should advance the scan location.
+        // if this doesn't happen, it means that there is something creating a loop.   and this is bad.
+        if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
+            // clear the reference parameters if they have been set
+            if (displayName) *displayName= nil;
+            if (localName) *localName= nil;
+            if (domain) *domain= nil;
+             if (error) *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            return NO;
+        }
+        lastLocation = (NSInteger)self.scanLocation;
+        
         [self scanFoldingWhiteSpace];
         if ((localName && domain && !*localName && !*domain)&& [self scanAddrSpecIntoLocalName:localName domain:domain error:nil]){
 #ifdef DEBUG_RFC2822_SCANNER

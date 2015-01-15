@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, EmailParserErrorCodes){
     kEmailParserMalformedMimeDataError = 5,
     kEmailParserMalformedGroupError = 6,
     kEmailParserMalformedExtraneousTextAfterEmailError= 7,
-    kEmailParserMalformedAddressNotEnclosedInAngularError=8
+    kEmailParserMalformedAddressNotEnclosedInAngularError=8,
+    kEmailParserCannotParseError = 9
 };
 
 // Uncomment the following define to enforce strict RFC2822 compliance of email addresses
