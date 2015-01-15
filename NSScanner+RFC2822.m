@@ -47,7 +47,7 @@
     NSInteger lastLocation = -1;
     while ([self scanFoldingWhiteSpace] ||
            [self scanCommentIntoString:nil error:nil]){
-        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
             return NO;
@@ -101,7 +101,7 @@
     NSString * scannedString = nil;
     NSInteger lastLocation = -1;
     while([self scanWordIntoString:&scannedString]){
-        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
             return NO;
@@ -117,7 +117,7 @@
             }
             NSInteger lastLocation = -1;
             while([self scanCommentIntoString:nil error:nil])
-                // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+                // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
                     self.scanLocation = startLocation;
@@ -142,7 +142,7 @@
             }
             NSInteger lastLocation = -1;
             while([self scanCommentIntoString:nil error:nil])
-                // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+                // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
                     self.scanLocation = startLocation;
@@ -215,7 +215,7 @@
     NSMutableString * quotedText = [NSMutableString string];
     NSInteger lastLocation = -1;
     while(![self isAtEnd]){
-        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
             self.scanLocation = startLocation;
@@ -270,7 +270,7 @@
     BOOL closedParenthesis = NO;
     NSInteger lastLocation = -1;
     while(![self isAtEnd]){
-        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
             self.scanLocation = startLocation;
@@ -362,7 +362,7 @@
     BOOL closeAngular = NO;
     NSInteger lastLocation = -1;
     while(![self isAtEnd]){
-        // prevent a infinite loop by checking that the scanLocation is moving forward on each loop
+        // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
             self.scanLocation = startLocation;
