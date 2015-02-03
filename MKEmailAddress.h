@@ -16,6 +16,9 @@
 @property(readonly) NSString * userAtDomain;
 @property(readonly) NSString * displayName;
 
+#ifndef NS_DESIGNATED_INITIALIZER
+#define NS_DESIGNATED_INITIALIZER 
+#endif
 -(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart NS_DESIGNATED_INITIALIZER;
 
 +(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
