@@ -96,7 +96,16 @@
     }
     else if ([[word substringWithRange:NSMakeRange(i + 1, 2)] isEqualToString:@"B?"]) {
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
-        NSData * decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:0];
+        NSData * decodedData = nil;
+        if ([NSData instancesRespondToSelector:@selector(initWithBase64EncodedString:options:)]){
+             decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:0];
+        }
+        else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+            decodedData = [[NSData alloc] initWithBase64Encoding:[encodedString stringByReplacingOccurrencesOfString:@"[^A-Za-z0-9+/=]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [encodedString length])]];
+#pragma clang diagnostic pop
+        }
         NSString * decodedString = [[NSString alloc] initWithData:decodedData encoding:encoding];
         return decodedString;
     }
