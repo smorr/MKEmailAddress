@@ -16,7 +16,7 @@
 #endif
 
 #import "NSString+MimeEncoding.h"
-
+#import <AppKit/AppKit.h>
 
 @implementation NSString (MimeEncoding)
 
@@ -97,7 +97,8 @@
     else if ([[word substringWithRange:NSMakeRange(i + 1, 2)] isEqualToString:@"B?"]) {
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
         NSData * decodedData = nil;
-        if ([NSData instancesRespondToSelector:@selector(initWithBase64EncodedString:options:)]){
+        
+        if (floor(NSAppKitVersionNumber)>=NSAppKitVersionNumber10_9){
              decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:0];
         }
         else{
