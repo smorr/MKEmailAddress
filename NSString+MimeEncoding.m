@@ -18,6 +18,14 @@
 #import "NSString+MimeEncoding.h"
 #import <AppKit/AppKit.h>
 
+#ifndef NSAppKitVersionNumber10_9
+#define NSAppKitVersionNumber10_9 1265
+#endif
+#ifndef NSAppKitVersionNumber10_10
+#define NSAppKitVersionNumber10_10 1343
+#endif
+
+
 @implementation NSString (MimeEncoding)
 
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word {
