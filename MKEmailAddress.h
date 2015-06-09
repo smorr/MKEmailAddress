@@ -19,7 +19,7 @@
 #ifndef NS_DESIGNATED_INITIALIZER
 #define NS_DESIGNATED_INITIALIZER 
 #endif
--(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart ;
 
 +(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
 
