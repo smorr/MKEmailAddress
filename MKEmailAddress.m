@@ -14,6 +14,7 @@
 #import "MKEmailAddress.h"
 
 #import "NSScanner+RFC2822.h"
+#import "NSString+MimeEncoding.h"
 
 
 @implementation MKEmailAddress
@@ -26,6 +27,21 @@
         self.domain = domainPart;
     }
     return self;
+}
+
+-(instancetype) initWithCommentedAddress:(NSString*)commentedAddress{
+    self = [self init];
+    NSScanner * scanner = [NSScanner scannerWithString:commentedAddress];
+    NSString * displayName= nil;
+    NSString * userName = nil;
+    NSString * domain = nil;
+    NSError * error = nil;
+    [scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error];
+    self.addressComment = displayName;
+    self.userName = userName;
+    self.domain = domain;
+    return self;
+    
 }
 
 
@@ -90,7 +106,9 @@
 
 
 #pragma mark -
-
+-(NSString*)rfc2822Representation{
+     return self.addressComment?[NSString stringWithFormat:@"\"%@\" <%@>",self.addressComment,self.userAtDomain]:self.userAtDomain;
+}
 -(NSString*)commentedAddress{
     return self.addressComment?[NSString stringWithFormat:@"%@ <%@>",self.addressComment,self.userAtDomain]:self.userAtDomain;
 }
@@ -104,7 +122,10 @@
 }
 
 -(NSString*)displayName{
-    return self.addressComment?:self.userAtDomain;
+    return [self.addressComment decodedMimeEncodedString]?:self.userAtDomain;
+}
+-(BOOL)isValid{
+    return YES;
 }
 @end
 

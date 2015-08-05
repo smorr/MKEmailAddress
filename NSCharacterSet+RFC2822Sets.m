@@ -62,7 +62,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet * mutableSet = [NSMutableCharacterSet alphanumericCharacterSet];//NO_WS_CTL
-        [mutableSet addCharactersInString:@"!#$\%&'*+-/=?^_`{|}~"];
+        [mutableSet addCharactersInString:@"!#$\\%&'*+-/=?^_`{|}~"];
         
         theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
     });

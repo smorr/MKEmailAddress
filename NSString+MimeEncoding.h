@@ -10,4 +10,6 @@
 
 @interface NSString (MimeEncoding)
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word;
+-(NSString*)decodedMimeEncodedString;
 @end
+

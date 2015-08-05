@@ -42,4 +42,21 @@
     [self setScanLocation:newlocation];
     return (startLocation-newlocation);
 }
+
+-(BOOL)scanWhiteSpace{
+    NSUInteger startLocation = self.scanLocation;
+    [self scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:nil];
+    return self.scanLocation>startLocation;
+};
+
+-(BOOL)scanStringOfSize:(NSInteger)size intoString:(NSString**)outString{
+    if (self.scanLocation+size < [[self string] length]){
+        if (outString){
+            *outString = [[self string] substringWithRange:NSMakeRange(self.scanLocation,size)];
+        }
+        self.scanLocation+=size;
+        return YES;
+    }
+    return NO;
+}
 @end

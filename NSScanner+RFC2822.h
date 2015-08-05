@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, EmailParserErrorCodes){
     kEmailParserCannotParseError = 9
 };
 
+
 // Uncomment the following define to enforce strict RFC2822 compliance of email addresses
 //      this may result in many real world addresses in email headers to not parse properly because general lack of RFC2822 compliance
 
@@ -42,7 +43,7 @@ typedef NS_ENUM(NSInteger, EmailParserErrorCodes){
 -(BOOL) scanFoldingWhiteSpace;
     // Scans for a folding whitespace.
 
--(BOOL) scanCommentFoldingWhiteSpace;
+//-(BOOL) scanRFC2822CommentFoldingWhiteSpace;
     //  Scans for combination of comments (ctext) and folding whitespace.
 
 -(BOOL) scanQuotedPairIntoString:(NSString**) returnString;
@@ -89,7 +90,7 @@ typedef NS_ENUM(NSInteger, EmailParserErrorCodes){
      *                          [CFWS]
      */
 
--(BOOL) scanCommentIntoString:(NSString**) returnString
+-(BOOL) scanRFC2822CommentIntoString:(NSString**) returnString
                         error:(NSError**) error;
 
 -(BOOL) scanLocalPartIntoString:(NSString**) returnString;

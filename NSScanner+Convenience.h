@@ -32,5 +32,6 @@
     // returns the actual amount the location has moved (Should be same as argument if beginning of string is not reached.)
     // return values will be 0 if scan location is currently at beginning of scan string.
 
-
+-(BOOL)scanStringOfSize:(NSInteger)size intoString:(NSString**)outString;
+-(BOOL)scanWhiteSpace;
 @end

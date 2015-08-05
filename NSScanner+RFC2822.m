@@ -33,6 +33,9 @@
     
     return NO;
 }
+
+
+
 -(BOOL)scanFoldingWhiteSpace{
     //([*WSP CRLF] 1*WSP)
     NSUInteger startLocation = self.scanLocation;
@@ -46,7 +49,7 @@
     NSUInteger startLocation = self.scanLocation;
     NSInteger lastLocation = -1;
     while ([self scanFoldingWhiteSpace] ||
-           [self scanCommentIntoString:nil error:nil]){
+           [self scanRFC2822CommentIntoString:nil error:nil]){
         // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
@@ -116,7 +119,7 @@
                 hasAddedSpace= YES;
             }
             NSInteger lastLocation = -1;
-            while([self scanCommentIntoString:nil error:nil]){
+            while([self scanRFC2822CommentIntoString:nil error:nil])
                 // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
@@ -130,7 +133,6 @@
                     hasAddedSpace = YES;
                     
                 }
-            }
         }
         // obsoleted phrase allows '.' after first word
         if ([self currentCharacter]=='.'){
@@ -142,7 +144,7 @@
                 hasAddedSpace= YES;
             }
             NSInteger lastLocation = -1;
-            while([self scanCommentIntoString:nil error:nil]){
+            while([self scanRFC2822CommentIntoString:nil error:nil])
                 // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
@@ -155,7 +157,6 @@
                     hasAddedSpace = YES;
                     
                 }
-            }
         }
         
         if ([self isAtEnd]){
@@ -203,10 +204,10 @@
     
     if (![self advance:1]){
         if (error){
-            *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserUnclosedQuoteError userInfo:@{NSLocalizedDescriptionKey:@"Comment was not closed"}];
+            *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserUnclosedQuoteError userInfo:@{NSLocalizedDescriptionKey:@"QuotedString was not closed"}];
         }
         else{
-            NSAssert(YES,@"Comment was not closed");
+            NSAssert(YES,@"QuotedString was not closed");
         }
         self.scanLocation = startLocation;
         return NO;
@@ -226,6 +227,7 @@
         lastLocation = (NSInteger)self.scanLocation;
         
         NSString * scannedText = nil;
+        
         if ([self scanCharactersFromSet:[NSCharacterSet rfc2822QTextSet] intoString:&scannedText]){
             [quotedText appendString:scannedText];
         };
@@ -240,12 +242,12 @@
     }
     if (!quoteClosed){
         if (error){
-            *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserUnclosedQuoteError userInfo:@{NSLocalizedDescriptionKey:@"Comment was not closed"}];
+            *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserUnclosedQuoteError userInfo:@{NSLocalizedDescriptionKey:@"QuotedString was not closed"}];
             self.scanLocation = startLocation;
             return NO;
         }
         else{
-            NSAssert(YES,@"Comment was not closed");
+            NSAssert(YES,@"QuotedString was not closed");
         }
     }
     if (returnString){
@@ -255,7 +257,7 @@
 }
 
 
--(BOOL) scanCommentIntoString:(NSString**)returnString error:(NSError**)error{
+-(BOOL) scanRFC2822CommentIntoString:(NSString**)returnString error:(NSError**)error{
     
     
     NSUInteger startLocation = self.scanLocation;
@@ -296,7 +298,7 @@
         }
         if ([self currentCharacter]=='('){
             NSString * nestedComment = nil;
-            [self scanCommentIntoString:&nestedComment error:nil];
+            [self scanRFC2822CommentIntoString:&nestedComment error:nil];
             if (nestedComment) [comment appendFormat:@"(%@)",nestedComment];
             continue;
         }
@@ -582,7 +584,7 @@
             case '(':{
                 NSString * comment = nil;
                 
-                [self scanCommentIntoString:&comment error:&internalError];
+                [self scanRFC2822CommentIntoString:&comment error:&internalError];
 #ifdef DEBUG_RFC2822_SCANNER
                 NSLog (@"comment: %@",comment);
 #endif

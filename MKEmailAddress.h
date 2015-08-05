@@ -20,8 +20,9 @@
 #define NS_DESIGNATED_INITIALIZER 
 #endif
 -(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart ;
-
+-(instancetype) initWithCommentedAddress:(NSString*)commentedAddress;
 +(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
-
+-(NSString*)rfc2822Representation;
+-(BOOL)isValid;
 @end
 
