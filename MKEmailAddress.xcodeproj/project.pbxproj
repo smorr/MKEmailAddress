@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3227C4791B7264FA004702A4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C4781B7264FA004702A4 /* AppDelegate.m */; };
+		3227C47C1B7264FA004702A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C47B1B7264FA004702A4 /* main.m */; };
+		3227C47E1B7264FA004702A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3227C47D1B7264FA004702A4 /* Assets.xcassets */; };
+		3227C4811B7264FA004702A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3227C47F1B7264FA004702A4 /* MainMenu.xib */; };
+		3227C48C1B7264FA004702A4 /* MKEmailAddressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C48B1B7264FA004702A4 /* MKEmailAddressTests.m */; };
+		3227C4A11B726596004702A4 /* MKEmailAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C4981B726596004702A4 /* MKEmailAddress.m */; };
+		3227C4A21B726596004702A4 /* NSCharacterSet+RFC2822Sets.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C49A1B726596004702A4 /* NSCharacterSet+RFC2822Sets.m */; };
+		3227C4A31B726596004702A4 /* NSScanner+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C49C1B726596004702A4 /* NSScanner+Convenience.m */; };
+		3227C4A41B726596004702A4 /* NSScanner+RFC2822.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C49E1B726596004702A4 /* NSScanner+RFC2822.m */; };
+		3227C4A51B726596004702A4 /* NSString+MimeEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */; };
+		3227C4A71B7268AB004702A4 /* testAddresses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3227C4A61B7268AB004702A4 /* testAddresses.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3227C4881B7264FA004702A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3227C46C1B7264F9004702A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3227C4731B7264FA004702A4;
+			remoteInfo = MKEmailAddress;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3227C4741B7264FA004702A4 /* MKEmailAddress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MKEmailAddress.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3227C4771B7264FA004702A4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3227C4781B7264FA004702A4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3227C47B1B7264FA004702A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3227C47D1B7264FA004702A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3227C4801B7264FA004702A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3227C4821B7264FA004702A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3227C4871B7264FA004702A4 /* MKEmailAddressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MKEmailAddressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3227C48B1B7264FA004702A4 /* MKEmailAddressTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKEmailAddressTests.m; sourceTree = "<group>"; };
+		3227C48D1B7264FA004702A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3227C4971B726596004702A4 /* MKEmailAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKEmailAddress.h; sourceTree = "<group>"; };
+		3227C4981B726596004702A4 /* MKEmailAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKEmailAddress.m; sourceTree = "<group>"; };
+		3227C4991B726596004702A4 /* NSCharacterSet+RFC2822Sets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+RFC2822Sets.h"; sourceTree = "<group>"; };
+		3227C49A1B726596004702A4 /* NSCharacterSet+RFC2822Sets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+RFC2822Sets.m"; sourceTree = "<group>"; };
+		3227C49B1B726596004702A4 /* NSScanner+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+Convenience.h"; sourceTree = "<group>"; };
+		3227C49C1B726596004702A4 /* NSScanner+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+Convenience.m"; sourceTree = "<group>"; };
+		3227C49D1B726596004702A4 /* NSScanner+RFC2822.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+RFC2822.h"; sourceTree = "<group>"; };
+		3227C49E1B726596004702A4 /* NSScanner+RFC2822.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+RFC2822.m"; sourceTree = "<group>"; };
+		3227C49F1B726596004702A4 /* NSString+MimeEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MimeEncoding.h"; sourceTree = "<group>"; };
+		3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MimeEncoding.m"; sourceTree = "<group>"; };
+		3227C4A61B7268AB004702A4 /* testAddresses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testAddresses.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3227C4711B7264FA004702A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3227C4841B7264FA004702A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3227C46B1B7264F9004702A4 = {
+			isa = PBXGroup;
+			children = (
+				3227C4761B7264FA004702A4 /* Source */,
+				3227C48A1B7264FA004702A4 /* MKEmailAddressTests */,
+				3227C4751B7264FA004702A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3227C4751B7264FA004702A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3227C4741B7264FA004702A4 /* MKEmailAddress.app */,
+				3227C4871B7264FA004702A4 /* MKEmailAddressTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3227C4761B7264FA004702A4 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3227C4961B726596004702A4 /* MKEMailAddress */,
+				3227C4771B7264FA004702A4 /* AppDelegate.h */,
+				3227C4781B7264FA004702A4 /* AppDelegate.m */,
+				3227C47D1B7264FA004702A4 /* Assets.xcassets */,
+				3227C47F1B7264FA004702A4 /* MainMenu.xib */,
+				3227C4821B7264FA004702A4 /* Info.plist */,
+				3227C47A1B7264FA004702A4 /* Supporting Files */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		3227C47A1B7264FA004702A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3227C47B1B7264FA004702A4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3227C48A1B7264FA004702A4 /* MKEmailAddressTests */ = {
+			isa = PBXGroup;
+			children = (
+				3227C48B1B7264FA004702A4 /* MKEmailAddressTests.m */,
+				3227C48D1B7264FA004702A4 /* Info.plist */,
+				3227C4A61B7268AB004702A4 /* testAddresses.txt */,
+			);
+			path = MKEmailAddressTests;
+			sourceTree = "<group>";
+		};
+		3227C4961B726596004702A4 /* MKEMailAddress */ = {
+			isa = PBXGroup;
+			children = (
+				3227C4971B726596004702A4 /* MKEmailAddress.h */,
+				3227C4981B726596004702A4 /* MKEmailAddress.m */,
+				3227C4991B726596004702A4 /* NSCharacterSet+RFC2822Sets.h */,
+				3227C49A1B726596004702A4 /* NSCharacterSet+RFC2822Sets.m */,
+				3227C49B1B726596004702A4 /* NSScanner+Convenience.h */,
+				3227C49C1B726596004702A4 /* NSScanner+Convenience.m */,
+				3227C49D1B726596004702A4 /* NSScanner+RFC2822.h */,
+				3227C49E1B726596004702A4 /* NSScanner+RFC2822.m */,
+				3227C49F1B726596004702A4 /* NSString+MimeEncoding.h */,
+				3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */,
+			);
+			path = MKEMailAddress;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3227C4731B7264FA004702A4 /* MKEmailAddress */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3227C4901B7264FA004702A4 /* Build configuration list for PBXNativeTarget "MKEmailAddress" */;
+			buildPhases = (
+				3227C4701B7264FA004702A4 /* Sources */,
+				3227C4711B7264FA004702A4 /* Frameworks */,
+				3227C4721B7264FA004702A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MKEmailAddress;
+			productName = MKEmailAddress;
+			productReference = 3227C4741B7264FA004702A4 /* MKEmailAddress.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3227C4861B7264FA004702A4 /* MKEmailAddressTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3227C4931B7264FA004702A4 /* Build configuration list for PBXNativeTarget "MKEmailAddressTests" */;
+			buildPhases = (
+				3227C4831B7264FA004702A4 /* Sources */,
+				3227C4841B7264FA004702A4 /* Frameworks */,
+				3227C4851B7264FA004702A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3227C4891B7264FA004702A4 /* PBXTargetDependency */,
+			);
+			name = MKEmailAddressTests;
+			productName = MKEmailAddressTests;
+			productReference = 3227C4871B7264FA004702A4 /* MKEmailAddressTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3227C46C1B7264F9004702A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = indev;
+				TargetAttributes = {
+					3227C4731B7264FA004702A4 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					3227C4861B7264FA004702A4 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 3227C4731B7264FA004702A4;
+					};
+				};
+			};
+			buildConfigurationList = 3227C46F1B7264F9004702A4 /* Build configuration list for PBXProject "MKEmailAddress" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3227C46B1B7264F9004702A4;
+			productRefGroup = 3227C4751B7264FA004702A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3227C4731B7264FA004702A4 /* MKEmailAddress */,
+				3227C4861B7264FA004702A4 /* MKEmailAddressTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3227C4721B7264FA004702A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3227C47E1B7264FA004702A4 /* Assets.xcassets in Resources */,
+				3227C4811B7264FA004702A4 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3227C4851B7264FA004702A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3227C4A71B7268AB004702A4 /* testAddresses.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3227C4701B7264FA004702A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3227C4A21B726596004702A4 /* NSCharacterSet+RFC2822Sets.m in Sources */,
+				3227C4A41B726596004702A4 /* NSScanner+RFC2822.m in Sources */,
+				3227C47C1B7264FA004702A4 /* main.m in Sources */,
+				3227C4791B7264FA004702A4 /* AppDelegate.m in Sources */,
+				3227C4A11B726596004702A4 /* MKEmailAddress.m in Sources */,
+				3227C4A31B726596004702A4 /* NSScanner+Convenience.m in Sources */,
+				3227C4A51B726596004702A4 /* NSString+MimeEncoding.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3227C4831B7264FA004702A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3227C48C1B7264FA004702A4 /* MKEmailAddressTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3227C4891B7264FA004702A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3227C4731B7264FA004702A4 /* MKEmailAddress */;
+			targetProxy = 3227C4881B7264FA004702A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3227C47F1B7264FA004702A4 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3227C4801B7264FA004702A4 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3227C48E1B7264FA004702A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3227C48F1B7264FA004702A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3227C4911B7264FA004702A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Source/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.indev.MKEmailAddress;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3227C4921B7264FA004702A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Source/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.indev.MKEmailAddress;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3227C4941B7264FA004702A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MKEmailAddressTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.indev.MKEmailAddressTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MKEmailAddress.app/Contents/MacOS/MKEmailAddress";
+			};
+			name = Debug;
+		};
+		3227C4951B7264FA004702A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MKEmailAddressTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ca.indev.MKEmailAddressTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MKEmailAddress.app/Contents/MacOS/MKEmailAddress";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3227C46F1B7264F9004702A4 /* Build configuration list for PBXProject "MKEmailAddress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3227C48E1B7264FA004702A4 /* Debug */,
+				3227C48F1B7264FA004702A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3227C4901B7264FA004702A4 /* Build configuration list for PBXNativeTarget "MKEmailAddress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3227C4911B7264FA004702A4 /* Debug */,
+				3227C4921B7264FA004702A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3227C4931B7264FA004702A4 /* Build configuration list for PBXNativeTarget "MKEmailAddressTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3227C4941B7264FA004702A4 /* Debug */,
+				3227C4951B7264FA004702A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3227C46C1B7264F9004702A4 /* Project object */;
+}
