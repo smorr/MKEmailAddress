@@ -58,22 +58,36 @@
 }
 
 +(NSCharacterSet*)rfc2822atomTextSet{
+    /*
+     atext           =       ALPHA / DIGIT / ; Any character except controls,
+                             "!" / "#" /     ;  SP, and specials.
+                             "$" / "%" /     ;  Used for atoms
+                             "&" / "'" /
+                             "*" / "+" /
+                             "-" / "/" /
+                             "=" / "?" /
+                             "^" / "_" /
+                             "`" / "{" /
+                             "|" / "}" /
+                             "~"
+                             */
     static NSCharacterSet * theSet= nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet * mutableSet = [NSMutableCharacterSet alphanumericCharacterSet];//NO_WS_CTL
-        [mutableSet addCharactersInString:@"!#$\\%&'*+-/=?^_`{|}~"];
+        [mutableSet addCharactersInString:@"!#$%&'*+-/=?^_`{|}~"];
         
         theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
     });
     return theSet;
 }
+
 +(NSCharacterSet*)rfc2822dotAtomTextSet{
     static NSCharacterSet * theSet= nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet * mutableSet = [NSMutableCharacterSet alphanumericCharacterSet];//NO_WS_CTL
-        [mutableSet addCharactersInString:@"!#$\%&'*+-/=?^_`{|}~."];// nb. same as atom with '.'
+        [mutableSet addCharactersInString:@"!#$%&'*+-/=?^_`{|}~."];// nb. same as atom with '.'
         theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
     });
     return theSet;
