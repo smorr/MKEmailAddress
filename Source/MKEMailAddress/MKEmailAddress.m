@@ -107,10 +107,33 @@
 
 #pragma mark -
 -(NSString*)rfc2822Representation{
-     return self.addressComment?[NSString stringWithFormat:@"\"%@\" <%@>",self.addressComment,self.userAtDomain]:self.userAtDomain;
+    if (self.addressComment){
+        if (self.userAtDomain){
+            if ([self.addressComment canBeConvertedToEncoding:NSASCIIStringEncoding]){
+                return [NSString stringWithFormat:@"\"%@\" <%@>",self.addressComment,self.userAtDomain];
+            }
+            else{
+                NSString * encodedComment = [NSString mimeWordWithString:self.addressComment preferredEncoding:NSISOLatin1StringEncoding encodingUsed:nil];
+                return [NSString stringWithFormat:@"\"%@\" <%@>",encodedComment,self.userAtDomain];
+            }
+        }
+        return nil;
+    }
+    else{
+        return self.userAtDomain;
+    }
 }
+
 -(NSString*)commentedAddress{
-    return self.addressComment?[NSString stringWithFormat:@"%@ <%@>",self.addressComment,self.userAtDomain]:self.userAtDomain;
+    if (self.addressComment){
+        if (self.userAtDomain){
+            return [NSString stringWithFormat:@"%@ <%@>",self.addressComment,self.userAtDomain];
+        }
+    }
+    else{
+        return self.userAtDomain;
+    }
+    return nil;
 }
 
 -(NSString *)description{
@@ -118,7 +141,10 @@
 }
 
 -(NSString*)userAtDomain{
-    return [NSString stringWithFormat:@"%@@%@",self.userName, self.domain];
+    if (self.userName && self.domain){
+        return [NSString stringWithFormat:@"%@@%@",self.userName, self.domain];
+    }
+    return nil;
 }
 
 -(NSString*)displayName{

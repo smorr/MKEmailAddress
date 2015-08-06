@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (MimeEncoding)
++ (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding;
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word;
 -(NSString*)decodedMimeEncodedString;
 @end
