@@ -100,9 +100,6 @@
 
 
 -(NSUInteger) hash{
-    if ([self.commentedAddress isEqualToString:@"Scott Morrison <smorr@indev.ca>"]){
-        
-    }
     return [self.commentedAddress hash];
 }
 
