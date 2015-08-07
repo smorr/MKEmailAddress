@@ -74,7 +74,7 @@
         unichar followingCharacter =[self characterAtOffset:1];
         if ([textCS characterIsMember:followingCharacter]){
             if (returnString){
-                *returnString = [NSString stringWithFormat:@"\\%c",followingCharacter];
+                *returnString = [NSString stringWithFormat:@"%c",followingCharacter];
             }
             [self advance:2];
         }
