@@ -119,7 +119,7 @@
                 hasAddedSpace= YES;
             }
             NSInteger lastLocation = -1;
-            while([self scanRFC2822CommentIntoString:nil error:nil])
+            while([self scanRFC2822CommentIntoString:nil error:nil]){
                 // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
@@ -133,6 +133,7 @@
                     hasAddedSpace = YES;
                     
                 }
+            }
         }
         // obsoleted phrase allows '.' after first word
         if ([self currentCharacter]=='.'){
@@ -144,7 +145,7 @@
                 hasAddedSpace= YES;
             }
             NSInteger lastLocation = -1;
-            while([self scanRFC2822CommentIntoString:nil error:nil])
+            while([self scanRFC2822CommentIntoString:nil error:nil]){
                 // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
                 if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
                     // clear the reference parameters if they have been set
@@ -157,6 +158,7 @@
                     hasAddedSpace = YES;
                     
                 }
+            }
         }
         
         if ([self isAtEnd]){
