@@ -47,31 +47,29 @@
 
 +(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue{
     if (!headerValue) return nil;
-    NSScanner * scanner = [NSScanner scannerWithString:headerValue];
-    NSString * displayName= nil;
-    NSString * userName = nil;
-    NSString * domain = nil;
-    NSError * error = nil;
     NSMutableArray * emailAddresses = [NSMutableArray array];
-    while (![scanner isAtEnd] && !error){
-        if([scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error]){
-            if (displayName||(userName && domain)){
-                NSString * decodedDisplayName = [displayName decodedMimeEncodedString];
-                MKEmailAddress * address = [[MKEmailAddress alloc] initWithAddressComment:decodedDisplayName userName:userName domain:domain];
-                [emailAddresses addObject:address];
+    @autoreleasepool {
+        NSScanner * scanner = [NSScanner scannerWithString:headerValue];
+        NSString * displayName= nil;
+        NSString * userName = nil;
+        NSString * domain = nil;
+        NSError * error = nil;
+         while (![scanner isAtEnd] && !error){
+            if([scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error]){
+                if (displayName||(userName && domain)){
+                    NSString * decodedDisplayName = [displayName decodedMimeEncodedString];
+                    MKEmailAddress * address = [[MKEmailAddress alloc] initWithAddressComment:decodedDisplayName userName:userName domain:domain];
+                    [emailAddresses addObject:address];
+                }
+            }
+            else{
+                NSLog(@"\n\t\t%@\n\t\t\t\tERROR: %@",headerValue,error);
+                emailAddresses = nil;
+                break;
             }
         }
-        else{
-            NSLog(@"\n\t\t%@\n\t\t\t\tERROR: %@",headerValue,error);
-            emailAddresses = nil;
-            break;
-        }
     }
-    return emailAddresses;
-    
-    return nil;
-    
-    
+    return emailAddresses;    
 }
 
 #pragma mark NSCopying, Equality 
