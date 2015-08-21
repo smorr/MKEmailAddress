@@ -59,4 +59,12 @@
     }
     return NO;
 }
+-(BOOL)scanStringFromArray:(NSArray <NSString*> *)strings intoString:(NSString**)outstring{
+    for (NSString *aString in strings){
+        if ([self scanString:aString intoString:outstring]){
+            return YES;
+        }
+    }
+    return NO;
+}
 @end

@@ -34,4 +34,5 @@
 
 -(BOOL)scanStringOfSize:(NSInteger)size intoString:(NSString**)outString;
 -(BOOL)scanWhiteSpace;
+-(BOOL)scanStringFromArray:(NSArray <NSString*> *)strings intoString:(NSString**)outstring;
 @end
