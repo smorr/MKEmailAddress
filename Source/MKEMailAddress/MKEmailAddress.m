@@ -44,6 +44,19 @@
     
 }
 
++(NSString*)rfc2822RepresentationForAddresses:(NSArray <MKEmailAddress*> *)addresses{
+    NSMutableArray * rfc2822Reps = [NSMutableArray array];
+    for (MKEmailAddress* anAddr in addresses){
+        NSString * rfcRep = [anAddr rfc2822Representation];
+        if (rfcRep){
+            [rfc2822Reps addObject:rfcRep];
+        }
+    }
+    if ([rfc2822Reps count]){
+        return [rfc2822Reps componentsJoinedByString:@","];
+    }
+    return nil;
+}
 
 +(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue{
     if (!headerValue) return nil;
@@ -114,7 +127,17 @@
                 return [NSString stringWithFormat:@"\"%@\" <%@>",encodedComment,self.userAtDomain];
             }
         }
-        return nil;
+        else{
+            // technically this is not RFC2822 compliant as there is no user@domain portion
+            if ([self.addressComment canBeConvertedToEncoding:NSASCIIStringEncoding]){
+                return [NSString stringWithFormat:@"\"%@\"",self.addressComment];
+            }
+            else{
+                NSString * encodedComment = [NSString mimeWordWithString:self.addressComment preferredEncoding:NSISOLatin1StringEncoding encodingUsed:nil];
+                return [NSString stringWithFormat:@"\"%@\"",encodedComment];
+            }
+
+        }
     }
     else{
         return self.userAtDomain;
