@@ -44,7 +44,7 @@
     
 }
 
-+(NSString*)rfc2822RepresentationForAddresses:(NSArray <MKEmailAddress*> *)addresses{
++(NSString*)rfc2822RepresentationForAddresses:(MKEmailAddressArray *)addresses{
     NSMutableArray * rfc2822Reps = [NSMutableArray array];
     for (MKEmailAddress* anAddr in addresses){
         NSString * rfcRep = [anAddr rfc2822Representation];
