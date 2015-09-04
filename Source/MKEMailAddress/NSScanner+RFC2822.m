@@ -223,7 +223,14 @@
         // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
-            self.scanLocation = startLocation;
+            if (error){
+                *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserIllegalCharacterError userInfo:@{NSLocalizedDescriptionKey:@"QuotedString included non ASCII character"}];
+                self.scanLocation = startLocation;
+                return NO;
+            }
+            else{
+                NSAssert(YES,@"QuotedString was not closed");
+            }
             return NO;
         }
         lastLocation = (NSInteger)self.scanLocation;
@@ -530,7 +537,9 @@
             if (displayName) *displayName= nil;
             if (localName) *localName= nil;
             if (domain) *domain= nil;
-             if (error) *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            if (error) {
+                *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            }
             return NO;
         }
         lastLocation = (NSInteger)self.scanLocation;
