@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MKEmailAddress;
+
+typedef NSArray <MKEmailAddress*> MKEmailAddressArray;
+typedef NSMutableArray <MKEmailAddress*> MKEmailAddressMutableArray;
 
 @interface MKEmailAddress:NSObject <NSCopying>
+
 @property(strong) NSString * addressComment;
 @property(strong) NSString * userName;
 @property(strong) NSString * domain;
@@ -21,8 +26,8 @@
 #endif
 -(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart ;
 -(instancetype) initWithCommentedAddress:(NSString*)commentedAddress;
-+(NSArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
-+(NSString*)rfc2822RepresentationForAddresses:(NSArray <MKEmailAddress*> *)addresses;
++(NSString*)rfc2822RepresentationForAddresses:(MKEmailAddressArray *)addresses;
++(MKEmailAddressArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
 -(NSString*)rfc2822Representation;
 -(BOOL)isValid;
 @end
