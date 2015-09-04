@@ -16,6 +16,7 @@
 #endif
 
 #import "NSString+MimeEncoding.h"
+#import "NSData+MimeWordDecoding.h"
 
 
 @implementation NSString (MimeEncoding)
@@ -146,7 +147,7 @@
     }
     else if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"B?"] == NSOrderedSame) {
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
-        NSData * decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:0];
+        NSData * decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:NSDataBase64DecodingIgnoreUnknownCharacters];
         NSString * decodedString = [[NSString alloc] initWithData:decodedData encoding:encoding];
         return decodedString;
     }
@@ -159,6 +160,9 @@
     [scanner setCharactersToBeSkipped:nil];
     [scanner setCaseSensitive:NO];
     NSMutableString * decodedString = [NSMutableString string];
+    NSMutableData * fullDecodedData = [NSMutableData data];
+    NSStringEncoding dataEncoding = 0;
+    
     while (![scanner isAtEnd]){
         NSString * leadingWhiteSpace = nil;
         [scanner scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:&leadingWhiteSpace];
@@ -186,16 +190,38 @@
         }
         if (mimeEnd != NSNotFound){
             NSString * mimeWord = [[scanner string] substringWithRange:NSMakeRange(mimeStart, mimeEnd-mimeStart)];
-            NSString * decodedWord =  [NSString stringWithMimeEncodedWord: mimeWord];
-            if(decodedWord){
-                [decodedString appendString: decodedWord];
+            NSStringEncoding wordEncoding = 0;
+            NSData * decodedWordData = [NSData dataForMimeEncodedWord:mimeWord usedEncoding:&wordEncoding];
+            if (dataEncoding==0){
+                // this is first pass -- just append the data;
+                dataEncoding = wordEncoding;
+                [fullDecodedData appendData:decodedWordData];
+            }
+            else if (wordEncoding != dataEncoding){
+                // this word has a different encoding than accumulated data
+                // so convert the accumulated data to a string (using its encoding) and append to ongoing string.
+                
+                NSString * decodedChunk =  [[NSString alloc] initWithData:fullDecodedData encoding:dataEncoding];
+                [decodedString appendString: decodedChunk];
+                
+                // and start accumulating data again with new encoding.
+                dataEncoding = wordEncoding;
+                [fullDecodedData setData:decodedWordData];
             }
             else{
-                NSLog(@"could not decode %@",mimeWord);
+                // same encoding as last chuck -- so just append the data.
+                [fullDecodedData appendData:decodedWordData];
             }
         }
     }
+    
+    // if there is is any remaining accumulated data, decode into string and append to the wholeString
+    NSString * decodedChunk =  [[NSString alloc] initWithData:fullDecodedData encoding:dataEncoding];
+    if (decodedChunk){
+        [decodedString appendString: decodedChunk];
+    }
     return [NSString stringWithString:decodedString];
 }
+
 @end
 
