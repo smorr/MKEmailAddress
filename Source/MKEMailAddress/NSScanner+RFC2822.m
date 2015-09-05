@@ -237,9 +237,33 @@
         
         NSString * scannedText = nil;
         
-        if ([self scanCharactersFromSet:[NSCharacterSet rfc2822QTextSet] intoString:&scannedText]){
-            [quotedText appendString:scannedText];
-        };
+        if ([self scanCharactersFromSet:[NSCharacterSet rfc2822ExtendedQTextSet] intoString:&scannedText]){
+            if ([scannedText canBeConvertedToEncoding:NSASCIIStringEncoding]){
+                [quotedText appendString:scannedText];
+            }
+            else {
+                // text contains characters > 127.    So we do some guessing as to what it may be ---
+                // this may be incorrect but chance are the email sender didn't mime encode things so
+                // we are left with trying to gues what encoding they used.
+                NSData * encodedData =[scannedText dataUsingEncoding:NSISOLatin1StringEncoding];
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSISOLatin2StringEncoding];
+                }
+//                if (!encodedData){
+//                    encodedData = [scannedText dataUsingEncoding:NSMacOSRomanStringEncoding];
+//                }
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1252StringEncoding];
+                }
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1250StringEncoding];
+                }
+                if (encodedData){
+                    NSString * convertedString =  [[NSString alloc] initWithData:encodedData encoding:NSUTF8StringEncoding];
+                    [quotedText appendString:convertedString];
+                }
+            }
+        }
         if ([self currentCharacter]=='"'){
             quoteClosed = YES;
             [self advance:1];

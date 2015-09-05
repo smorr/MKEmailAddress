@@ -216,9 +216,11 @@
     }
     
     // if there is is any remaining accumulated data, decode into string and append to the wholeString
-    NSString * decodedChunk =  [[NSString alloc] initWithData:fullDecodedData encoding:dataEncoding];
-    if (decodedChunk){
-        [decodedString appendString: decodedChunk];
+    if (fullDecodedData && dataEncoding){
+        NSString * decodedChunk =  [[NSString alloc] initWithData:fullDecodedData encoding:dataEncoding];
+        if (decodedChunk){
+            [decodedString appendString: decodedChunk];
+        }
     }
     return [NSString stringWithString:decodedString];
 }
