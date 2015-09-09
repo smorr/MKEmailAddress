@@ -9,8 +9,17 @@
 #import <Foundation/Foundation.h>
 @class MKEmailAddress;
 
-typedef NSArray <MKEmailAddress*> MKEmailAddressArray;
-typedef NSMutableArray <MKEmailAddress*> MKEmailAddressMutableArray;
+#if __has_feature(objc_generics)
+
+#define MKEmailAddressArray NSArray <MKEmailAddress*>
+#define MKEmailAddressMutableArray NSMutableArray <MKEmailAddress*>
+
+#else
+
+#define MKEmailAddressArray NSArray
+#define MKEmailAddressMutableArray NSMutableArray
+
+#endif
 
 @interface MKEmailAddress:NSObject <NSCopying>
 
