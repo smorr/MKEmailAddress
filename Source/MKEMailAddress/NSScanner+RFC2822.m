@@ -223,16 +223,47 @@
         // prevent an infinite loop by checking that the scanLocation is moving forward on each loop
         if ((NSInteger)self.scanLocation <= (NSInteger)lastLocation){
             // clear the reference parameters if they have been set
-            self.scanLocation = startLocation;
+            if (error){
+                *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserIllegalCharacterError userInfo:@{NSLocalizedDescriptionKey:@"QuotedString included non ASCII character"}];
+                self.scanLocation = startLocation;
+                return NO;
+            }
+            else{
+                NSAssert(YES,@"QuotedString was not closed");
+            }
             return NO;
         }
         lastLocation = (NSInteger)self.scanLocation;
         
         NSString * scannedText = nil;
         
-        if ([self scanCharactersFromSet:[NSCharacterSet rfc2822QTextSet] intoString:&scannedText]){
-            [quotedText appendString:scannedText];
-        };
+        if ([self scanCharactersFromSet:[NSCharacterSet rfc2822ExtendedQTextSet] intoString:&scannedText]){
+            if ([scannedText canBeConvertedToEncoding:NSASCIIStringEncoding]){
+                [quotedText appendString:scannedText];
+            }
+            else {
+                // text contains characters > 127.    So we do some guessing as to what it may be ---
+                // this may be incorrect but chance are the email sender didn't mime encode things so
+                // we are left with trying to gues what encoding they used.
+                NSData * encodedData =[scannedText dataUsingEncoding:NSISOLatin1StringEncoding];
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSISOLatin2StringEncoding];
+                }
+//                if (!encodedData){
+//                    encodedData = [scannedText dataUsingEncoding:NSMacOSRomanStringEncoding];
+//                }
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1252StringEncoding];
+                }
+                if (!encodedData){
+                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1250StringEncoding];
+                }
+                if (encodedData){
+                    NSString * convertedString =  [[NSString alloc] initWithData:encodedData encoding:NSUTF8StringEncoding];
+                    [quotedText appendString:convertedString];
+                }
+            }
+        }
         if ([self currentCharacter]=='"'){
             quoteClosed = YES;
             [self advance:1];
@@ -530,7 +561,9 @@
             if (displayName) *displayName= nil;
             if (localName) *localName= nil;
             if (domain) *domain= nil;
-             if (error) *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            if (error) {
+                *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            }
             return NO;
         }
         lastLocation = (NSInteger)self.scanLocation;

@@ -8,6 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef NSStringArray 
+
+#if __has_feature(objc_generics)
+
+#define NSStringArray NSArray <NSString*>
+
+#else
+
+#define NSStringArray NSArray
+
+#endif
+
+#endif
+
 @interface NSScanner (Convenience)
 
 
@@ -34,5 +48,5 @@
 
 -(BOOL)scanStringOfSize:(NSInteger)size intoString:(NSString**)outString;
 -(BOOL)scanWhiteSpace;
--(BOOL)scanStringFromArray:(NSArray /*<NSString*>*/ *)strings intoString:(NSString**)outstring;
+-(BOOL)scanStringFromArray:(NSStringArray *)strings intoString:(NSString**)outstring;
 @end

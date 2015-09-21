@@ -51,11 +51,26 @@
         [mutableSet addCharactersInRange:NSMakeRange(35,57)];  //%d35-91
         [mutableSet addCharactersInRange:NSMakeRange(93,34)];  //%d93-126;
         [mutableSet addCharactersInRange:NSMakeRange(127,1)];
+        theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
+    });
+    return theSet;
+}
+
++(NSCharacterSet*)rfc2822ExtendedQTextSet{
+    static NSCharacterSet * theSet= nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet * mutableSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(1,33)];
+        [mutableSet addCharactersInRange:NSMakeRange(35,57)];  //%d35-91
+        [mutableSet addCharactersInRange:NSMakeRange(93,34)];  //%d93-126;
+        [mutableSet addCharactersInRange:NSMakeRange(127,1)];
+        [mutableSet addCharactersInRange:NSMakeRange(128,127)]; //%d128-255 -- this is not legal Qtext but some stupid servers may provide this
         
         theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
     });
     return theSet;
 }
+
 
 +(NSCharacterSet*)rfc2822atomTextSet{
     /*

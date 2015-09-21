@@ -18,6 +18,7 @@
 		3227C4A41B726596004702A4 /* NSScanner+RFC2822.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C49E1B726596004702A4 /* NSScanner+RFC2822.m */; };
 		3227C4A51B726596004702A4 /* NSString+MimeEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */; };
 		3227C4A71B7268AB004702A4 /* testAddresses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3227C4A61B7268AB004702A4 /* testAddresses.txt */; };
+		329296981B9A446300A874A6 /* NSData+MimeWordDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 329296971B9A446300A874A6 /* NSData+MimeWordDecoding.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		3227C49F1B726596004702A4 /* NSString+MimeEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MimeEncoding.h"; sourceTree = "<group>"; };
 		3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MimeEncoding.m"; sourceTree = "<group>"; };
 		3227C4A61B7268AB004702A4 /* testAddresses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testAddresses.txt; sourceTree = "<group>"; };
+		329296961B9A446300A874A6 /* NSData+MimeWordDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MimeWordDecoding.h"; sourceTree = "<group>"; };
+		329296971B9A446300A874A6 /* NSData+MimeWordDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MimeWordDecoding.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				3227C49E1B726596004702A4 /* NSScanner+RFC2822.m */,
 				3227C49F1B726596004702A4 /* NSString+MimeEncoding.h */,
 				3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */,
+				329296961B9A446300A874A6 /* NSData+MimeWordDecoding.h */,
+				329296971B9A446300A874A6 /* NSData+MimeWordDecoding.m */,
 			);
 			path = MKEMailAddress;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 				3227C4A21B726596004702A4 /* NSCharacterSet+RFC2822Sets.m in Sources */,
 				3227C4A41B726596004702A4 /* NSScanner+RFC2822.m in Sources */,
 				3227C47C1B7264FA004702A4 /* main.m in Sources */,
+				329296981B9A446300A874A6 /* NSData+MimeWordDecoding.m in Sources */,
 				3227C4791B7264FA004702A4 /* AppDelegate.m in Sources */,
 				3227C4A11B726596004702A4 /* MKEmailAddress.m in Sources */,
 				3227C4A31B726596004702A4 /* NSScanner+Convenience.m in Sources */,
@@ -427,6 +433,7 @@
 				3227C4921B7264FA004702A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3227C4931B7264FA004702A4 /* Build configuration list for PBXNativeTarget "MKEmailAddressTests" */ = {
 			isa = XCConfigurationList;
@@ -435,6 +442,7 @@
 				3227C4951B7264FA004702A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

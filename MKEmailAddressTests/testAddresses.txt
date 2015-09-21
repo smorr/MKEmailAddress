@@ -1,2 +1,4 @@
 test@indev.ca
 "test user" <test@indev.ca>
+"CocoaHeads MontrÃ©al" <contact@eventbrite.com>
+"Ãingleton" <orders@eventbrite.com>

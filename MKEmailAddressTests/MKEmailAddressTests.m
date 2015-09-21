@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 #import "MKEmailAddress.h"
+#import "NSString+MimeEncoding.h"
+#import "NSData+MimeWordDecoding.h"
+
 @interface MKEmailAddressTests : XCTestCase
 
 @end
@@ -24,6 +27,7 @@
     [super tearDown];
 }
 
+
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -31,17 +35,19 @@
     NSString * testAddresses  =  [NSString stringWithContentsOfFile:testAddressPath encoding:NSUTF8StringEncoding error:nil];
     [testAddresses enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
         NSArray <MKEmailAddress *> * emailAddresses = [MKEmailAddress emailAddressesFromHeaderValue:line];
-        NSLog (@"EmailAddresses: %@",emailAddresses);
-    }];
+        for (MKEmailAddress* anAddress in emailAddresses){
+            NSLog (@"%@ rfc2822: %@",anAddress, [anAddress rfc2822Representation]);
+        }
+     }];
  
     
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
+//- (void)testPerformanceExample {
+//    // This is an example of a performance test case.
+//    [self measureBlock:^{
+//        // Put the code you want to measure the time of here.
+//    }];
+//}
 
 @end
