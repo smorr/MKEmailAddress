@@ -245,21 +245,43 @@
                 // text contains characters > 127.    So we do some guessing as to what it may be ---
                 // this may be incorrect but chance are the email sender didn't mime encode things so
                 // we are left with trying to gues what encoding they used.
-                NSData * encodedData =[scannedText dataUsingEncoding:NSISOLatin1StringEncoding];
-                if (!encodedData){
-                    encodedData = [scannedText dataUsingEncoding:NSISOLatin2StringEncoding];
+                
+                static CFStringEncoding preferredEncodings[] = {
+                    kCFStringEncodingASCII,
+                    kCFStringEncodingISOLatin1,
+                    kCFStringEncodingISOLatin2,
+                    // no constants available for ISO8859-3 through ISO8859-15
+                    kCFStringEncodingISOLatin3,
+                    kCFStringEncodingISOLatin4,
+                    kCFStringEncodingISOLatinCyrillic,
+                    kCFStringEncodingISOLatinArabic,
+                    kCFStringEncodingISOLatinGreek,
+                    kCFStringEncodingISOLatinHebrew,
+                    kCFStringEncodingISOLatin5,
+                    kCFStringEncodingISOLatin6,
+                    kCFStringEncodingISOLatinThai,
+                    kCFStringEncodingISOLatin7,
+                    kCFStringEncodingISOLatin8,
+                    kCFStringEncodingISOLatin9,
+                    kCFStringEncodingUTF8,
+                    0 };
+                
+                NSStringEncoding stringEncoding = 0;
+                NSData * encodedData = nil;
+                
+                CFStringEncoding *encodingPtr;
+                for(encodingPtr = preferredEncodings; *encodingPtr != 0; encodingPtr++)
+                {
+                    stringEncoding = CFStringConvertEncodingToNSStringEncoding(*encodingPtr);
+                    if([scannedText canBeConvertedToEncoding:stringEncoding])
+                    {
+                        encodedData = [scannedText dataUsingEncoding:stringEncoding];
+                        break;
+                    }
                 }
-//                if (!encodedData){
-//                    encodedData = [scannedText dataUsingEncoding:NSMacOSRomanStringEncoding];
-//                }
-                if (!encodedData){
-                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1252StringEncoding];
-                }
-                if (!encodedData){
-                    encodedData = [scannedText dataUsingEncoding:NSWindowsCP1250StringEncoding];
-                }
+                
                 if (encodedData){
-                    NSString * convertedString =  [[NSString alloc] initWithData:encodedData encoding:NSUTF8StringEncoding];
+                    NSString * convertedString =  [[NSString alloc] initWithData:encodedData encoding:stringEncoding];
                     [quotedText appendString:convertedString];
                 }
             }

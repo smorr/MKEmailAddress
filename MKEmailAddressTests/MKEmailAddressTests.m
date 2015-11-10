@@ -43,6 +43,52 @@
     
 }
 
+- (void)testJson {
+    
+    NSString * testAddressPath = [[NSBundle  bundleForClass:[self class]] pathForResource:@"testAddresses" ofType:@"json"];
+    
+    NSData *data = [NSData dataWithContentsOfFile:testAddressPath];
+    
+    NSError *jsonError = nil;
+    
+    id tests = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+    
+    for (NSArray *row in tests) {
+        NSString *testString = row[0];
+        NSArray *testResults = row[1];
+        
+        
+        NSArray <MKEmailAddress *> * emailAddresses = [MKEmailAddress emailAddressesFromHeaderValue:testString];
+        
+        if ([testResults count] != [emailAddresses count])
+        {
+            NSLog(@"Wrong count");
+            continue;
+        }
+        
+        for (NSInteger addressesIndex = 0; addressesIndex < [testResults count]; addressesIndex++)
+        {
+            NSArray *testResult = testResults[addressesIndex];
+            NSString *resultDisplayName = testResult[0];
+            NSString *resultAddress = testResult[1];
+            
+            MKEmailAddress *emailAddress = emailAddresses[addressesIndex];
+            
+            if (![resultDisplayName isEqual:[emailAddress displayName]])
+            {
+                NSLog(@"Wrong displayName %@ vs %@", resultDisplayName, [emailAddress displayName]);
+            }
+            
+            if (![resultAddress isEqual:[emailAddress userAtDomain]])
+            {
+                NSLog(@"Wrong address %@ vs %@", resultAddress, [emailAddress userAtDomain]);
+            }
+        }
+    }
+    
+    NSLog(@"jsonError %@", jsonError);
+}
+
 //- (void)testPerformanceExample {
 //    // This is an example of a performance test case.
 //    [self measureBlock:^{

@@ -19,6 +19,7 @@
 		3227C4A51B726596004702A4 /* NSString+MimeEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3227C4A01B726596004702A4 /* NSString+MimeEncoding.m */; };
 		3227C4A71B7268AB004702A4 /* testAddresses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3227C4A61B7268AB004702A4 /* testAddresses.txt */; };
 		329296981B9A446300A874A6 /* NSData+MimeWordDecoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 329296971B9A446300A874A6 /* NSData+MimeWordDecoding.m */; };
+		D1BAC2F11BDA74AC007FBEA8 /* testAddresses.json in Resources */ = {isa = PBXBuildFile; fileRef = D1BAC2F01BDA74AC007FBEA8 /* testAddresses.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3227C4A61B7268AB004702A4 /* testAddresses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testAddresses.txt; sourceTree = "<group>"; };
 		329296961B9A446300A874A6 /* NSData+MimeWordDecoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MimeWordDecoding.h"; sourceTree = "<group>"; };
 		329296971B9A446300A874A6 /* NSData+MimeWordDecoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MimeWordDecoding.m"; sourceTree = "<group>"; };
+		D1BAC2F01BDA74AC007FBEA8 /* testAddresses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testAddresses.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				3227C48B1B7264FA004702A4 /* MKEmailAddressTests.m */,
 				3227C48D1B7264FA004702A4 /* Info.plist */,
 				3227C4A61B7268AB004702A4 /* testAddresses.txt */,
+				D1BAC2F01BDA74AC007FBEA8 /* testAddresses.json */,
 			);
 			path = MKEmailAddressTests;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1BAC2F11BDA74AC007FBEA8 /* testAddresses.json in Resources */,
 				3227C4A71B7268AB004702A4 /* testAddresses.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
