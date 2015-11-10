@@ -1,0 +1,1621 @@
+[
+    [
+        "",
+        []
+    ],
+    [
+        "\"'''advocacy@p.example.org ' ' '\" <advocacy@p.example.org>",
+        [
+            [
+                "'''advocacy@p.example.org ' ' '",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"''advocacy@p.example.org ' '\" <advocacy@p.example.org>",
+        [
+            [
+                "''advocacy@p.example.org ' '",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'. Jerry a'\" <JerryPanshen@aol.example.aero>",
+        [
+            [
+                "'. Jerry a'",
+                "JerryPanshen@aol.example.aero",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Adam Turoff'\" <adam.turoff@s.example.net>, advocacy@p.example.org",
+        [
+            [
+                "'Adam Turoff'",
+                "adam.turoff@s.example.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Andy Lester'\" <andy@pet.example.com>, \"'Gabor Szabo'\" <gabor@trt.example.biz>, advocacy@p.example.org",
+        [
+            [
+                "'Andy Lester'",
+                "andy@pet.example.com",
+                null
+            ],
+            [
+                "'Gabor Szabo'",
+                "gabor@trt.example.biz",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Ask Bjoern Hansen'\" <ask@p.example.org>, <advocacy@p.example.org>",
+        [
+            [
+                "'Ask Bjoern Hansen'",
+                "ask@p.example.org",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com> , \"'David E. Wheeler'\" <David@whl.example.net>",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                "'David E. Wheeler'",
+                "David@whl.example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com> , \"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu>",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com> , \"'Jon Orwant'\" <orwant@media.mit.edu>, <chip@valinux.com> , <tidbit@sri.net>, <advocacy@p.example.org>",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "chip@valinux.com",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com>, <advocacy@p.example.org>, <perl5-porters@p.example.org>",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "perl5-porters@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com>, advocacy@p.example.org",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Chris Nandor'\" <pudge@x.example.com>, advocacy@p.example.org, perl5-porters@p.example.org",
+        [
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "perl5-porters@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'David H. Adler '\" <dha@panix.com>, \"'advocacy@p.example.org '\" <advocacy@p.example.org>",
+        [
+            [
+                "'David H. Adler '",
+                "dha@panix.com",
+                null
+            ],
+            [
+                "'advocacy@p.example.org '",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Doucette, Bob'\" <BDoucette@tesent.com>, 'Rich Bowen' <rbowen@rc.example.com>",
+        [
+            [
+                "'Doucette, Bob'",
+                "BDoucette@tesent.com",
+                null
+            ],
+            [
+                "'Rich Bowen'",
+                "rbowen@rc.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton '\" <elaine@chaos.example.edu>, \"Turoff, Adam\" <adam.turoff@s.example.net>",
+        [
+            [
+                "'Elaine -HFB- Ashton '",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Turoff, Adam",
+                "adam.turoff@s.example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu>",
+        [
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu> , \"'Larry Wall'\" <larry@wall.org>",
+        [
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu> , \"'Larry Wall'\" <larry@wall.org> , \"'Jon Orwant'\" <orwant@media.mit.edu>, <chip@valinux.com> , <tidbit@sri.net>, <advocacy@p.example.org>",
+        [
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "chip@valinux.com",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu>, \"'Larry Wall'\" <larry@wall.org>, \"'Jon Orwant'\" <orwant@media.mit.edu>, <chip@valinux.com>, <tidbit@sri.net>, <advocacy@p.example.org>",
+        [
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "chip@valinux.com",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Elaine -HFB- Ashton'\" <elaine@chaos.example.edu>, <advocacy@p.example.org>",
+        [
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'John Porter'\" <jdporter@min.net>, \"'advocacy@p.example.org'\" <advocacy@p.example.org>",
+        [
+            [
+                "'John Porter'",
+                "jdporter@min.net",
+                null
+            ],
+            [
+                "'advocacy@p.example.org'",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Larry Wall'\" <larry@wall.org> , \"'Jon Orwant'\" <orwant@media.mit.edu>, <chip@valinux.com> , <tidbit@sri.net>, <advocacy@p.example.org>",
+        [
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "chip@valinux.com",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Madeline Schnapp '\" <madeline@oreilly.com>, \"'advocacy@p.example.org '\" <advocacy@p.example.org>",
+        [
+            [
+                "'Madeline Schnapp '",
+                "madeline@oreilly.com",
+                null
+            ],
+            [
+                "'advocacy@p.example.org '",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Mark Mielke'\" <markm@nortelnetworks.com>",
+        [
+            [
+                "'Mark Mielke'",
+                "markm@nortelnetworks.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Pamela Carter'\" <pcarter150@comcast.net>, <advocacy@p.example.org>",
+        [
+            [
+                "'Pamela Carter'",
+                "pcarter150@comcast.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Shlomi Fish'\" <shlomif@vipe.technion.ac.il>",
+        [
+            [
+                "'Shlomi Fish'",
+                "shlomif@vipe.technion.ac.il",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Steve Lane'\" <sml@zfx.com>, \"'Chris Nandor'\" <pudge@x.example.com>, advocacy@p.example.org, perl5-porters@p.example.org",
+        [
+            [
+                "'Steve Lane'",
+                "sml@zfx.com",
+                null
+            ],
+            [
+                "'Chris Nandor'",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "perl5-porters@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'Tom Christiansen'\" <tchrist@chthon.perl.com>, Horsley Tom <Tom.Horsley@ccur.com>, \"'Steve Lane'\" <sml@zfx.com>, advocacy@p.example.org, perl5-porters@p.example.org",
+        [
+            [
+                "'Tom Christiansen'",
+                "tchrist@chthon.perl.com",
+                null
+            ],
+            [
+                "Horsley Tom",
+                "Tom.Horsley@ccur.com",
+                null
+            ],
+            [
+                "'Steve Lane'",
+                "sml@zfx.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "perl5-porters@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'abigail@foad.example.biz'\" <abigail@foad.example.biz>,\t \"Michael R. Wolf\"<MichaelRunningWolf@att.net>",
+        [
+            [
+                "'abigail@foad.example.biz'",
+                "abigail@foad.example.biz",
+                null
+            ],
+            [
+                "Michael R. Wolf",
+                "MichaelRunningWolf@att.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'abigail@foad.example.biz'\" <abigail@foad.example.biz>, Michael G Schwern <schwern@x.example.com>",
+        [
+            [
+                "'abigail@foad.example.biz'",
+                "abigail@foad.example.biz",
+                null
+            ],
+            [
+                "Michael G Schwern",
+                "schwern@x.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'abigail@foad.example.biz'\" <abigail@foad.example.biz>, Michael G Schwern <schwern@x.example.com>, Nicholas Clark <nick@c.example.org>, Piers Cawley <pdcawley@bofh.org.uk>, advocacy@p.example.org",
+        [
+            [
+                "'abigail@foad.example.biz'",
+                "abigail@foad.example.biz",
+                null
+            ],
+            [
+                "Michael G Schwern",
+                "schwern@x.example.com",
+                null
+            ],
+            [
+                "Nicholas Clark",
+                "nick@c.example.org",
+                null
+            ],
+            [
+                "Piers Cawley",
+                "pdcawley@bofh.org.uk",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'advocacy@p.example.org '\" <advocacy@p.example.org>",
+        [
+            [
+                "'advocacy@p.example.org '",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'advocacy@p.example.org '\" <advocacy@p.example.org>, \"Turoff, Adam\" <adam.turoff@s.example.net>",
+        [
+            [
+                "'advocacy@p.example.org '",
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                "Turoff, Adam",
+                "adam.turoff@s.example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'advocacy@p.example.org'\" <advocacy@p.example.org>",
+        [
+            [
+                "'advocacy@p.example.org'",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'bwarnock@capita.com'\" <bwarnock@capita.com>, advocacy@p.example.org",
+        [
+            [
+                "'bwarnock@capita.com'",
+                "bwarnock@capita.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'duff@x.example.com'\" <duff@x.example.com>",
+        [
+            [
+                "'duff@x.example.com'",
+                "duff@x.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'london-list@happyfunball.pm.org'\" <london-list@happyfunball.pm.org>",
+        [
+            [
+                "'london-list@happyfunball.pm.org'",
+                "london-list@happyfunball.pm.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'perl-hackers@stlouis.pm.org'\" <perl-hackers@stlouis.pm.org>",
+        [
+            [
+                "'perl-hackers@stlouis.pm.org'",
+                "perl-hackers@stlouis.pm.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"'perl-hackers@stlouis.pm.org'\" <perl-hackers@stlouis.pm.org>, advocacy@p.example.org, marsneedswomen@happyfunball.pm.org",
+        [
+            [
+                "'perl-hackers@stlouis.pm.org'",
+                "perl-hackers@stlouis.pm.org",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "marsneedswomen@happyfunball.pm.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"<advocacy@p.example.org>\" <advocacy@p.example.org>",
+        [
+            [
+                "<advocacy@p.example.org>",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Adam Turoff\" <adam.turoff@s.example.net>, \"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>",
+        [
+            [
+                "Adam Turoff",
+                "adam.turoff@s.example.net",
+                null
+            ],
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Adam Turoff\" <adam.turoff@s.example.net>, \"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"Brent Michalski\" <brent@perlguy.net>, \"Madeline Schnapp\" <madeline@oreilly.com>, <advocacy@p.example.org>, <betsy@oreilly.com>",
+        [
+            [
+                "Adam Turoff",
+                "adam.turoff@s.example.net",
+                null
+            ],
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Brent Michalski",
+                "brent@perlguy.net",
+                null
+            ],
+            [
+                "Madeline Schnapp",
+                "madeline@oreilly.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "betsy@oreilly.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Adam Turoff\" <adam.turoff@s.example.net>, \"Paul Prescod\" <paul@co.example.va>",
+        [
+            [
+                "Adam Turoff",
+                "adam.turoff@s.example.net",
+                null
+            ],
+            [
+                "Paul Prescod",
+                "paul@co.example.va",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Alan Olsen\" <alan@svr.example.museum>, \"Rich Bowen\" <rbowen@rc.example.com>",
+        [
+            [
+                "Alan Olsen",
+                "alan@svr.example.museum",
+                null
+            ],
+            [
+                "Rich Bowen",
+                "rbowen@rc.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Andreas J. Koenig\" <andreas.koenig@example.net>",
+        [
+            [
+                "Andreas J. Koenig",
+                "andreas.koenig@example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Andreas J. Koenig\" <andreas.koenig@example.net>, advocacy@p.example.org",
+        [
+            [
+                "Andreas J. Koenig",
+                "andreas.koenig@example.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Andreas J. Koenig\" <andreas.koenig@example.net>, advocacy@p.example.org, regn@ExamPle.com",
+        [
+            [
+                "Andreas J. Koenig",
+                "andreas.koenig@example.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "regn@ExamPle.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Andy Wardley\" <abw@cre.canon.co.uk>",
+        [
+            [
+                "Andy Wardley",
+                "abw@cre.canon.co.uk",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Bas A. Schulte\" <bschulte@zeelandnet.nl>",
+        [
+            [
+                "Bas A. Schulte",
+                "bschulte@zeelandnet.nl",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Bas A.Schulte\" <bschulte@zeelandnet.nl>",
+        [
+            [
+                "Bas A.Schulte",
+                "bschulte@zeelandnet.nl",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Betsy Waliszewski\" <betsy@oreilly.com>, \"perl-advocacy\" <advocacy@p.example.org>",
+        [
+            [
+                "Betsy Waliszewski",
+                "betsy@oreilly.com",
+                null
+            ],
+            [
+                "perl-advocacy",
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Bradley M. Kuhn\" <bkuhn@ebb.org>",
+        [
+            [
+                "Bradley M. Kuhn",
+                "bkuhn@ebb.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Brammer, Phil\" <PBRA01@CONAGRAFROZEN.COM>",
+        [
+            [
+                "Brammer, Phil",
+                "PBRA01@CONAGRAFROZEN.COM",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Brent Michalski\" <brent@perlguy.net>, \"Madeline Schnapp\" <madeline@oreilly.com>, <advocacy@p.example.org>, <betsy@oreilly.com>",
+        [
+            [
+                "Brent Michalski",
+                "brent@perlguy.net",
+                null
+            ],
+            [
+                "Madeline Schnapp",
+                "madeline@oreilly.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "betsy@oreilly.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Brian Wilson\" <bwilson@songline.com>",
+        [
+            [
+                "Brian Wilson",
+                "bwilson@songline.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Calvin Lee\" <bodyshock911@hotmail.com>, <advocacy@p.example.org>",
+        [
+            [
+                "Calvin Lee",
+                "bodyshock911@hotmail.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Calvin Lee\" <bodyshock911@hotmail.com>, advocacy@p.example.org",
+        [
+            [
+                "Calvin Lee",
+                "bodyshock911@hotmail.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chip Salzenberg\" <chip@valinux.com>",
+        [
+            [
+                "Chip Salzenberg",
+                "chip@valinux.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chip Salzenberg\" <chip@valinux.com>, \"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>",
+        [
+            [
+                "Chip Salzenberg",
+                "chip@valinux.com",
+                null
+            ],
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chris Devers\" <cdevers@boston.com>, \"Uri Guttman\" <uri@stemsystems.com>",
+        [
+            [
+                "Chris Devers",
+                "cdevers@boston.com",
+                null
+            ],
+            [
+                "Uri Guttman",
+                "uri@stemsystems.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chris Nandor\" <pudge@x.example.com>",
+        [
+            [
+                "Chris Nandor",
+                "pudge@x.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chris Nandor\" <pudge@x.example.com>, \"Nathan Torkington\" <gnat@frii.com>, \"Peter Scott\" <Peter@PSDT.com>",
+        [
+            [
+                "Chris Nandor",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                "Nathan Torkington",
+                "gnat@frii.com",
+                null
+            ],
+            [
+                "Peter Scott",
+                "Peter@PSDT.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Chris Nandor\" <pudge@x.example.com>, \"Nathan Torkington\" <gnat@frii.com>, <advocacy@p.example.org>, \"Peter Scott\" <Peter@PSDT.com>",
+        [
+            [
+                "Chris Nandor",
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                "Nathan Torkington",
+                "gnat@frii.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                "Peter Scott",
+                "Peter@PSDT.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Clinton A. Pierce\" <clintp@geeksalad.org>",
+        [
+            [
+                "Clinton A. Pierce",
+                "clintp@geeksalad.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Clinton A. Pierce\" <clintp@geeksalad.org>, madeline@oreilly.com, pudge@x.example.com, advocacy@p.example.org",
+        [
+            [
+                "Clinton A. Pierce",
+                "clintp@geeksalad.org",
+                null
+            ],
+            [
+                null,
+                "madeline@oreilly.com",
+                null
+            ],
+            [
+                null,
+                "pudge@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Curtis Poe\" <cp@onsitetech.com>, <advocacy@p.example.org>",
+        [
+            [
+                "Curtis Poe",
+                "cp@onsitetech.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Curtis Poe\" <cp@onsitetech.com>, advocacy@p.example.org",
+        [
+            [
+                "Curtis Poe",
+                "cp@onsitetech.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Dave Cross\" <dave@dave.org.uk>",
+        [
+            [
+                "Dave Cross",
+                "dave@dave.org.uk",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David E. Wheeler\" <David@Wheeler.net>",
+        [
+            [
+                "David E. Wheeler",
+                "David@Wheeler.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David E. Wheeler\" <David@Wheeler.net>, \"'Larry Wall'\" <larry@wall.org>, \"'Jon Orwant'\" <orwant@media.mit.edu>, chip@valinux.com, tidbit@sri.net, advocacy@p.example.org",
+        [
+            [
+                "David E. Wheeler",
+                "David@Wheeler.net",
+                null
+            ],
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "chip@valinux.com",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David E. Wheeler\" <David@Wheeler.net>, 'Elaine -HFB- Ashton' <elaine@chaos.example.edu>, 'Larry Wall' <larry@wall.org>, 'Jon Orwant' <orwant@media.mit.edu>, tidbit@sri.net, advocacy@p.example.org",
+        [
+            [
+                "David E. Wheeler",
+                "David@Wheeler.net",
+                null
+            ],
+            [
+                "'Elaine -HFB- Ashton'",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "'Larry Wall'",
+                "larry@wall.org",
+                null
+            ],
+            [
+                "'Jon Orwant'",
+                "orwant@media.mit.edu",
+                null
+            ],
+            [
+                null,
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David Grove\" <pete@petes-place.com>",
+        [
+            [
+                "David Grove",
+                "pete@petes-place.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David Grove\" <pete@petes-place.com>, <advocacy@p.example.org>",
+        [
+            [
+                "David Grove",
+                "pete@petes-place.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David H. Adler\" <dha@panix.com>",
+        [
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David H. Adler\" <dha@panix.com>, <advocacy@p.example.org>, <simon@brecon.co.uk>",
+        [
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "simon@brecon.co.uk",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David H. Adler\" <dha@panix.com>, advocacy@p.example.org",
+        [
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David H. Adler\" <dha@panix.com>, advocacy@p.example.org, perl5-porters@p.example.org",
+        [
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ],
+            [
+                null,
+                "perl5-porters@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"David H. Adler\" <dha@panix.com>,advocacy@p.example.org",
+        [
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Edwards, Darryl\" <Darryl.Edwards@adc.com>",
+        [
+            [
+                "Edwards, Darryl",
+                "Darryl.Edwards@adc.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"Brent Michalski\" <brent@perlguy.net>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Brent Michalski",
+                "brent@perlguy.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"Frank Schmuck, CFO\" <fschmuck@l.example.org>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Frank Schmuck, CFO",
+                "fschmuck@l.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"Peter Scott\" <Peter@PSDT.com>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Peter Scott",
+                "Peter@PSDT.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"Tom Christiansen\" <tchrist@chthon.perl.com>, <Ben_Tilly@trepp.com>, \"David H. Adler\" <dha@panix.com>, <advocacy@p.example.org>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "Tom Christiansen",
+                "tchrist@chthon.perl.com",
+                null
+            ],
+            [
+                null,
+                "Ben_Tilly@trepp.com",
+                null
+            ],
+            [
+                "David H. Adler",
+                "dha@panix.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, \"brian d foy\" <tidbit@sri.net>, <advocacy@p.example.org>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                "brian d foy",
+                "tidbit@sri.net",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Elaine -HFB- Ashton\" <elaine@chaos.example.edu>, <advocacy@p.example.org>",
+        [
+            [
+                "Elaine -HFB- Ashton",
+                "elaine@chaos.example.edu",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Frank Schmuck, CFO\" <fschmuck@l.example.org>",
+        [
+            [
+                "Frank Schmuck, CFO",
+                "fschmuck@l.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Frank Schmuck, CFO\" <fschmuck@l.example.org>, \"'abigail@foad.example.biz'\" <abigail@foad.example.biz>, Michael G Schwern <schwern@x.example.com>,  Nicholas Clark <nick@c.example.org>, advocacy@p.example.org",
+        [
+            [
+                "Frank Schmuck, CFO",
+                "fschmuck@l.example.org",
+                null
+            ],
+            [
+                "'abigail@foad.example.biz'",
+                "abigail@foad.example.biz",
+                null
+            ],
+            [
+                "Michael G Schwern",
+                "schwern@x.example.com",
+                null
+            ],
+            [
+                "Nicholas Clark",
+                "nick@c.example.org",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"G. Wade Johnson\" <gwadej@normal.example.coop>",
+        [
+            [
+                "G. Wade Johnson",
+                "gwadej@normal.example.coop",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Gabor Szabo\" <gabor@trt.example.biz>",
+        [
+            [
+                "Gabor Szabo",
+                "gabor@trt.example.biz",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Greg Norris (humble visionary genius)\" <nextrightmove@bang.example.net>, <advocacy@p.example.org>",
+        [
+            [
+                "Greg Norris",
+                "nextrightmove@bang.example.net",
+                "(humble visionary genius)"
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Greg Norris \\(humble visionary genius\\)\" <nextrightmove@bang.example.net>",
+        [
+            [
+                "Greg Norris (humble visionary genius)",
+                "nextrightmove@bang.example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Greg Norris humble visionary genius\\\"\" <nextrightmove@bang.example.net>",
+        [
+            [
+                "Greg Norris humble visionary genius\"",
+                "nextrightmove@bang.example.net",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Helton, Brandon\" <bhelton@h.h.example.com>, perl6-language@p.example.org, advocacy@p.example.org",
+        [
+            [
+                "Helton, Brandon",
+                "bhelton@h.h.example.com",
+                null
+            ],
+            [
+                null,
+                "perl6-language@p.example.org",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Jan Dubois\" <jand@ExamPle.com>",
+        [
+            [
+                "Jan Dubois",
+                "jand@ExamPle.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Jason W. May\" <jasonmay@example.name>",
+        [
+            [
+                "Jason W. May",
+                "jasonmay@example.name",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Jason W. May\" <jmay@x.example.com>",
+        [
+            [
+                "Jason W. May",
+                "jmay@x.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Jason W. May\" <jmay@x.example.com>, <advocacy@p.example.org>",
+        [
+            [
+                "Jason W. May",
+                "jmay@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "Jason W. May <jmay@x.example.com>",
+        [
+            [
+                "Jason W. May",
+                "jmay@x.example.com",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"Jason W. May\" <jmay@x.example.com>, advocacy@p.example.org",
+        [
+            [
+                "Jason W. May",
+                "jmay@x.example.com",
+                null
+            ],
+            [
+                null,
+                "advocacy@p.example.org",
+                null
+            ]
+        ]
+    ],
+    [
+        "admin+=E6=96=B0=E5=8A=A0=E5=9D=A1_Weblog@test.sxt.example.info",
+        [
+            [
+                null,
+                "admin+=E6=96=B0=E5=8A=A0=E5=9D=A1_Weblog@test.sxt.example.info",
+                null
+            ]
+        ]
+    ],
+    [
+        "\"<fake@bogus.biz>\" <real@actual.mil>",
+        [
+            [
+                "<fake@bogus.biz>",
+                "real@actual.mil",
+                null
+            ]
+        ]
+    ]
+]
