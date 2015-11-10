@@ -85,10 +85,9 @@
     if (encoding == kCFStringEncodingInvalidId){
         return nil;
     }
-    NSString *encodedString;
+    NSString *encodedString = nil;
     
-    if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"Q?"] == NSOrderedSame)
-    {
+    if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"Q?"] == NSOrderedSame){
         // quoted-printable
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
         NSMutableData *binaryString = [[NSMutableData alloc] initWithLength:encodedString.length] ;
@@ -96,20 +95,24 @@
         int j = 0;
         char h;
         
-        for (i = 0; i < encodedString.length; i++)
-        {
-            unichar ch = [encodedString characterAtIndex:i];
-            if (ch == (unichar)'_')
+        int encodedIndex = 0;
+        
+        while (encodedIndex < encodedString.length){
+            unichar ch = [encodedString characterAtIndex:encodedIndex];
+            if (ch == (unichar)'_'){
                 binaryBytes[j++] = ' ';
-            else if (ch == (unichar)'=')
-            {
-                if (i >= encodedString.length - 2)
+            }
+            else if (ch == (unichar)'='){
+                if (encodedIndex >= encodedString.length - 2)
                     return nil;
                 
                 unsigned char val = 0;
                 
                 // high-order hex char
-                h = [encodedString characterAtIndex:++i];
+                encodedIndex++;
+                if (encodedIndex >= encodedString.length) return nil;
+                
+                h = [encodedString characterAtIndex:encodedIndex];
                 if ((h >= '0') && (h <= '9'))
                     val += ((int)(h - '0')) << 4;
                 else if ((h >= 'A') && (h <= 'F'))
@@ -119,7 +122,10 @@
                 else
                     return nil;
                 // low-order hex char
-                h = [encodedString characterAtIndex:++i];
+                encodedIndex++;
+                if (encodedIndex >= encodedString.length) return nil;
+
+                h = [encodedString characterAtIndex:encodedIndex];
                 if ((h >= '0') && (h <= '9'))
                     val += (int)(h - '0');
                 else if ((h >= 'A') && (h <= 'F'))
@@ -135,6 +141,7 @@
                 binaryBytes[j++] = ch;
             else
                 return nil;
+            encodedIndex++;
         }
         
         binaryBytes[++j] = 0;
