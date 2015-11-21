@@ -85,7 +85,6 @@
                 return nil;
         }
         
-        binaryBytes[++j] = 0;
         [binaryString setLength:j];
         
         return binaryString;

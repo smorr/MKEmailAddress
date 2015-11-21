@@ -1,3 +1,4 @@
+"=?utf-8?Q?SourceForge=20Resource=20Newsletter?=" <sourceforge@resources.sourceforge.com>
 test@indev.ca
 "test user" <test@indev.ca>
 "CocoaHeads MontrÃ©al" <contact@eventbrite.com>
