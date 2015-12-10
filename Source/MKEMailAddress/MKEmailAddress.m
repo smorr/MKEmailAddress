@@ -118,9 +118,11 @@
 #pragma mark -
 -(NSString*)rfc2822Representation{
     if (self.addressComment){
+        NSString * escapedQuotedComment = [self.addressComment stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        
         if (self.userAtDomain){
             if ([self.addressComment canBeConvertedToEncoding:NSASCIIStringEncoding]){
-                return [NSString stringWithFormat:@"\"%@\" <%@>",self.addressComment,self.userAtDomain];
+                return [NSString stringWithFormat:@"\"%@\" <%@>",escapedQuotedComment,self.userAtDomain];
             }
             else{
                 NSString * encodedComment = [NSString mimeWordWithString:self.addressComment preferredEncoding:NSISOLatin1StringEncoding encodingUsed:nil];
@@ -130,7 +132,7 @@
         else{
             // technically this is not RFC2822 compliant as there is no user@domain portion
             if ([self.addressComment canBeConvertedToEncoding:NSASCIIStringEncoding]){
-                return [NSString stringWithFormat:@"\"%@\"",self.addressComment];
+                return [NSString stringWithFormat:@"\"%@\"",escapedQuotedComment];
             }
             else{
                 NSString * encodedComment = [NSString mimeWordWithString:self.addressComment preferredEncoding:NSISOLatin1StringEncoding encodingUsed:nil];
