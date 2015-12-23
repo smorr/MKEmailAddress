@@ -43,7 +43,7 @@
     
 }
 
-- (void)testJson {
+/*- (void)testJson {
     
     NSString * testAddressPath = [[NSBundle  bundleForClass:[self class]] pathForResource:@"testAddresses" ofType:@"json"];
     
@@ -88,7 +88,7 @@
     
     NSLog(@"jsonError %@", jsonError);
 }
-
+*/
 //- (void)testPerformanceExample {
 //    // This is an example of a performance test case.
 //    [self measureBlock:^{

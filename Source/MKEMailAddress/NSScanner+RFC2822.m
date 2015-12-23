@@ -572,7 +572,7 @@
     NSUInteger startLocation = self.scanLocation;
     NSError * internalError = nil;
     BOOL foundDelimiter = NO;
-    
+    BOOL previousWordWasMimeEncoded = NO;
     NSInteger lastLocation = -1;
     while(![self isAtEnd] && !internalError && !foundDelimiter){
         
@@ -633,7 +633,19 @@
                         NSLog (@"EncodedString: %@ --> %@",mimeData,[NSString stringWithMimeEncodedWord:mimeData]);
 #endif
                     }
-                    if (displayName) *displayName =[NSString stringWithMimeEncodedWord:mimeData];
+                    if (displayName) {
+                        NSString * decodedWord = [NSString stringWithMimeEncodedWord:mimeData];
+                        if  (*displayName ){
+                            if (previousWordWasMimeEncoded){
+                                // string together mime encoded words with no space
+                                *displayName = [NSString stringWithFormat:@"%@%@",*displayName,decodedWord];
+                            }
+                        }else{
+                            *displayName =decodedWord;
+                        }
+                    }
+
+                    previousWordWasMimeEncoded = YES;
                     break;
                 }
                 // no break if scanner doesn't advance
@@ -710,9 +722,17 @@
                 // character for the phrase portion of adddress.
                 //
                 
-                if( displayName && !*displayName){
+                if( displayName ){
                     if ([self scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<,"] intoString:&phrase]){
-                        *displayName = [phrase stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        phrase = [phrase stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        if (!*displayName){
+                            *displayName = phrase;
+                        }
+                        else if (previousWordWasMimeEncoded){
+                            // append current phrase to existing display name with space
+                            *displayName = [NSString stringWithFormat:@"%@ %@",*displayName,phrase];
+                            previousWordWasMimeEncoded = NO;
+                        }
                     }
 #endif
                 }

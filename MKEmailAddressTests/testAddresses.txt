@@ -1,6 +1,24 @@
+=?ISO-8859-1?B?QXVy6WxpZQ==?= & Alexandre <mariage@timac.org>
+=?ISO-8859-1?B?QW5kcuk=?= Klein <klein@sendstation.com>
+=?utf-8?q?Micka=C3=ABl_R=C3=A9mond?= <developers@boxcar.io>
+=?ISO-8859-1?Q?Andr=E9?= Pirard <PIRARD@vm1.ulg.ac.be>
 "=?utf-8?Q?SourceForge=20Resource=20Newsletter?=" <sourceforge@resources.sourceforge.com>
 test@indev.ca
 "test user" <test@indev.ca>
 "CocoaHeads MontrÃ©al" <contact@eventbrite.com>
 "Ãingleton" <orders@eventbrite.com>
 "Næs, Test" <test.nes@test.com>
+=?ISO-8859-1?B?QW5kcuk=?= Pfeiffer <ae@ayoh.de>
+<clemens>
+=?ISO-8859-1?B?QW5kcuk=?= Klein <klein@sendstation.com>
+=?ISO-8859-1?B?U3SO6XBoYW5l?= Ayrault <stephane@elgato.com>
+=?ISO-8859-1?B?QXVy6WxpZQ==?= Lecomte <aurelie.lecomte@gmail.com>
+=?ISO-8859-1?B?U3TpcGhhbmU=?= Ayrault <stephane@elgato.com>
+=?ISO-8859-1?B?QXVy6WxpZQ==?= Colucci <aurelie.colucci@googlemail.com>
+=?utf-8?q?Micka=C3=ABl_R=C3=A9mond?= <developers@boxcar.io>
+=?utf-8?q?Marius_R=C3=B8stad?= <tickets@easybring.uservoice.com>
+=?ISO-8859-1?B?QW5kcuk=?= Pfeiffer <ae@ayoh.de>
+Ina Pohlit <ina@elgato.com>, Sandy Gillians <sandy@elgato.com>, Deborah Smythe <deborah@elgato.com>, Lars Felber <lars@elgato.com>, Sylvia Schaller <sylvia@elgato.com>, Eddy Friesch <eddy@elgato.com>, John Kohr <john@elgato.com>, Sabine Winkler <sabine@elgato.com>, <angelika@elgato.com>, Klaus =?ISO-8859-1?B?TeRobGVrZQ==?= <klaus@elgato.com>, Uli Kusterer <uli@elgato.com>, <daniel@elgato.com>, Holger Hanstein <holger@elgato.com>, =?UTF-8?B?U3TluLlwaGFuZQ==?= Ayrault <stephane@elgato.com>, Bjoern Schnell <bjoern@elgato.com>, Susanne Nowak <susanne@elgato.com>, Ingrid Stangl <ingrid@elgato.com>, Clemens =?ISO-8859-1?B?S272cnplcg==?= <clemens@elgato.com>,Astrid Yingst <astrid@elgato.com>, Markus Tuerckheim <mt@elgato.com>, <alexandre@elgato.com>
+=?ISO-8859-1?Q?Keld_J=F8rn_Simonsen?= <keld@dkuug.dk>
+=?US-ASCII?Q?Keith_Moore?= <moore@cs.utk.edu>
+=?US-ASCII?Q?Kevin_M?= =?US-ASCII?Q?oore?= <kmoore@cs.utk.edu>
