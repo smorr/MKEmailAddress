@@ -498,6 +498,7 @@
         [self advance:1];
         NSString * format = nil;
         [self scanUpToString:@"?" intoString:&format];
+        format = [format uppercaseString];
         if (![format isEqualToString:@"Q"] && ![format isEqualToString:@"B"]){
             if (error){
                 *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserMalformedMimeDataError userInfo:@{NSLocalizedDescriptionKey:@"Malformed Mime Data"}];
