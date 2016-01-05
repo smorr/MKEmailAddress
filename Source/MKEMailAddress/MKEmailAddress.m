@@ -18,9 +18,16 @@
 
 
 @implementation MKEmailAddress
+-(instancetype) initWithInvalidHeaderString:(NSString*)headerString{
+    self =[self init];
+    if (self){
+        self.invalidHeaderString = headerString;
+    }
+    return self;
+}
 
 -(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart {
-    self = [super init];
+    self = [self init];
     if (self){
         self.addressComment =commentPart;
         self.userName = userPart;
@@ -63,19 +70,26 @@
     NSMutableArray * emailAddresses = [NSMutableArray array];
     @autoreleasepool {
         NSScanner * scanner = [NSScanner scannerWithString:headerValue];
-        NSString * displayName= nil;
-        NSString * userName = nil;
-        NSString * domain = nil;
-        NSError * error = nil;
+         NSError * error = nil;
          while (![scanner isAtEnd] && !error){
-            if([scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error]){
+            NSString * displayName= nil;
+            NSString * userName = nil;
+            NSString * domain = nil;
+            NSString * invalidPart = nil;
+            error = nil;
+            if([scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain invalid:&invalidPart error:&error]){
                 if (displayName||(userName && domain)){
                     NSString * decodedDisplayName = [displayName decodedMimeEncodedString];
                     MKEmailAddress * address = [[MKEmailAddress alloc] initWithAddressComment:decodedDisplayName userName:userName domain:domain];
                     [emailAddresses addObject:address];
                 }
+                else if (invalidPart){
+                    MKEmailAddress * address = [[MKEmailAddress alloc] initWithInvalidHeaderString:invalidPart];
+                    [emailAddresses addObject:address];
+                }
             }
             else{
+               
                 NSLog(@"\n\t\t%@\n\t\t\t\tERROR: %@",headerValue,error);
                 emailAddresses = nil;
                 break;
@@ -152,14 +166,21 @@
             return [NSString stringWithFormat:@"%@ <%@>",self.addressComment,self.userAtDomain];
         }
     }
-    else{
+    else if(self.userAtDomain){
         return self.userAtDomain;
     }
-    return nil;
+       return nil;
 }
 
 -(NSString *)description{
-    return [NSString stringWithFormat:@"<%@: %p> %@",[self class],self,[self commentedAddress]];
+    NSString * commentedAddress = self.commentedAddress;
+    if (commentedAddress){
+        return [NSString stringWithFormat:@"<%@: %p> %@",[self class],self,commentedAddress];
+    }
+    else{
+        return [NSString stringWithFormat:@"<%@: %p> (INVALID) %@",[self class],self,self.invalidHeaderString];
+
+    }
 }
 
 -(NSString*)userAtDomain{

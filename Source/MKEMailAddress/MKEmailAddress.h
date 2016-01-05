@@ -29,10 +29,13 @@
 @property(readonly) NSString * commentedAddress;
 @property(readonly) NSString * userAtDomain;
 @property(readonly) NSString * displayName;
+@property(strong) NSString * invalidHeaderString;
 
 #ifndef NS_DESIGNATED_INITIALIZER
 #define NS_DESIGNATED_INITIALIZER 
 #endif
+
+-(instancetype) initWithInvalidHeaderString:(NSString*)headerString;
 -(instancetype) initWithAddressComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart ;
 -(instancetype) initWithCommentedAddress:(NSString*)commentedAddress;
 +(NSString*)rfc2822RepresentationForAddresses:(MKEmailAddressArray *)addresses;

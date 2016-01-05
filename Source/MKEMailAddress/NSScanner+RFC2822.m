@@ -179,6 +179,25 @@
     return self.scanLocation>startLocation;
 }
 
+
+-(BOOL)scanDomainDotAtomIntoString:(NSString**)returnString{
+    
+    NSUInteger startLocation = self.scanLocation;
+    [self scanCommentFoldingWhiteSpace];
+    NSString * scannedString1 = nil;
+    NSString * scannedString2 = nil;
+    [self scanCharactersFromSet:[NSCharacterSet rfc2822atomTextSet] intoString:returnString?&scannedString1:0];
+    [self scanCharactersFromSet:[NSCharacterSet rfc2822DomainDotAtomTextSet] intoString:returnString?&scannedString2:0];
+    if (returnString && scannedString1 && scannedString2){
+        *returnString = [scannedString1 stringByAppendingString:scannedString2];
+    }
+    else if (returnString && scannedString1){
+        *returnString = scannedString1;
+    }
+    [self scanCommentFoldingWhiteSpace];
+    return self.scanLocation>startLocation;
+}
+
 -(BOOL)scanDotAtomIntoString:(NSString**)returnString{
     
     NSUInteger startLocation = self.scanLocation;
@@ -398,15 +417,17 @@
 -(BOOL)scanDomainIntoString:(NSString**)returnString{
     NSUInteger startLocation = self.scanLocation;
     [self scanDotAtomIntoString:returnString];
+
+    //[self scanDomainDotAtomIntoString:returnString];
     return self.scanLocation>startLocation;
 }
 - (BOOL)scanAngularAddrSpecIntoLocalName:(NSString**)localNameString domain:(NSString**) domainString error:(NSError**)error{
+    if (error) *error = nil;
     if ([self currentCharacter]!='<'){
         return NO;
     }
     NSUInteger startLocation = self.scanLocation;
-    
-    if (![self advance:1]){
+      if (![self advance:1]){
         if (error){
             *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserUnclosedAngularError userInfo:@{NSLocalizedDescriptionKey:@"Unclosed Angular Bracket Error"}];
         }
@@ -434,9 +455,15 @@
             
         }
         if (addrSpecError){
-            if (error) *error = addrSpecError;
-            self.scanLocation = startLocation;
-            return NO;
+            if ([self scanLocalPartIntoString:nil]){
+                [self scanFoldingWhiteSpace];
+                [self scanAngularAddrSpecIntoLocalName:localNameString domain:domainString error:&addrSpecError];
+            }
+            if (addrSpecError){
+                if (error) *error = addrSpecError;
+                self.scanLocation = startLocation;
+                return NO;
+            }
         }
         if ([self currentCharacter]=='>'){
             closeAngular = YES;
@@ -474,16 +501,23 @@
             }
         }
         else{
-            if (localNameString) *localNameString=nil;
-            
-            if (error){
-                *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserMalformedAddrSpecError userInfo:@{NSLocalizedDescriptionKey:@"Malformed Email Address Spec"}];
-            }
-            else{
-                NSAssert(YES,@"Malformed Email Address Spec");
-            }
-            self.scanLocation = startLocation;
-            return NO;
+            // edge case "Jose Mª Caballe" <"Jose Mª Caballe" <jose@grafos.com>>
+//            [self scanFoldingWhiteSpace];
+//            if ([self currentCharacter]=='<'){
+//                [self scanAngularAddrSpecIntoLocalName:localNameString domain:domainString error:error];
+//            }
+//            else{
+                if (localNameString) *localNameString=nil;
+                
+                if (error){
+                    *error = [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserMalformedAddrSpecError userInfo:@{NSLocalizedDescriptionKey:@"Malformed Email Address Spec"}];
+                }
+                else{
+                    NSAssert(YES,@"Malformed Email Address Spec");
+                }
+                self.scanLocation = startLocation;
+                return NO;
+//            }
         }
         
     }
@@ -562,8 +596,7 @@
     
     return self.scanLocation>startLocation;
 }
-
--(BOOL)scanRFC2822EmailAddressIntoDisplayName:(NSString**) displayName localName:(NSString**) localName domain:(NSString**)domain error:(NSError**)error{
+-(BOOL)scanRFC2822EmailAddressIntoDisplayName:(NSString**) displayName localName:(NSString**) localName domain:(NSString**)domain invalid:(NSString**)invalidPart error:(NSError**)error{
     [self setCharactersToBeSkipped:nil];
     if (displayName) *displayName= nil;
     if (localName) *localName= nil;
@@ -584,10 +617,24 @@
             if (displayName) *displayName= nil;
             if (localName) *localName= nil;
             if (domain) *domain= nil;
-            if (error) {
-                *error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+            NSRange nextCommaRange = [self.string rangeOfString:@"," options:0 range:NSMakeRange(self.scanLocation, [self.string length]- self.scanLocation)];
+            if (nextCommaRange.length){
+                if (invalidPart){
+                    *invalidPart = [self.string substringWithRange:NSMakeRange(startLocation,nextCommaRange.location-startLocation)];
+                }
+                self.scanLocation = nextCommaRange.location+1;
+                return YES;
             }
-            return NO;
+            else{
+                if (invalidPart){
+                    *invalidPart = [self.string substringFromIndex:startLocation];
+                }
+                if (error) {
+                    //*error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+                }
+                self.scanLocation = [self.string length];
+                return YES;
+            }
         }
         lastLocation = (NSInteger)self.scanLocation;
         
@@ -645,7 +692,7 @@
                             *displayName =decodedWord;
                         }
                     }
-
+                    
                     previousWordWasMimeEncoded = YES;
                     break;
                 }
@@ -674,8 +721,37 @@
                 break;
             }
             case '<':{
-                [self scanAngularAddrSpecIntoLocalName:localName domain:domain error:&internalError];
-                
+                NSInteger currentLocation = self.scanLocation;
+                NSString * addrLocalName = nil;
+                NSString * addrDomain = nil;
+                [self scanAngularAddrSpecIntoLocalName:&addrLocalName domain:&addrDomain error:&internalError];
+                if (addrLocalName && addrDomain){
+                    if (localName) *localName = addrLocalName;
+                    if (domain) *domain = addrDomain;
+                }
+                else{
+                    if (*displayName) *displayName = nil;
+                    
+                    NSRange nextCommaRange = [self.string rangeOfString:@"," options:0 range:NSMakeRange(currentLocation, [self.string length]- currentLocation)];
+                    if (nextCommaRange.length){
+                        if (invalidPart){
+                            *invalidPart = [self.string substringWithRange:NSMakeRange(startLocation,nextCommaRange.location-startLocation)];
+                        }
+                        self.scanLocation = nextCommaRange.location+1;
+                        return YES;
+                    }
+                    else{
+                        if (invalidPart){
+                            *invalidPart = [self.string substringFromIndex:startLocation];
+                        }
+                        if (error) {
+                            //*error= [NSError errorWithDomain:@"ca.indev.emailParser" code:kEmailParserCannotParseError userInfo:@{NSLocalizedDescriptionKey:@"Parser found it self in a loop while parsing email"}];
+                        }
+                        self.scanLocation = [self.string length];
+                        return YES;
+                    }
+ 
+                }
                 break;
             }
             case ',':{
@@ -713,7 +789,7 @@
 #endif
                     if (displayName) *displayName = phrase;
                 }
-#else  
+#else
                 // not strict compliance
                 //
                 // scanner will treat any initial portion of string up to first occurances of '<' character to be a valid phrase
@@ -744,10 +820,32 @@
         
     }// while
     if (internalError){
-        self.scanLocation = startLocation;
         if (error) *error = internalError;
+        // attempt to move to next item
+        NSRange nextCommaRange = [self.string rangeOfString:@"," options:0 range:NSMakeRange(self.scanLocation, [self.string length]- self.scanLocation)];
+        if (nextCommaRange.length){
+            if (invalidPart){
+                *invalidPart = [self.string substringWithRange:NSMakeRange(startLocation,nextCommaRange.location-startLocation)];
+            }
+            self.scanLocation = nextCommaRange.location;
+        }
+        else{
+            if (invalidPart){
+                *invalidPart = [self.string substringFromIndex:startLocation];
+            }
+            self.scanLocation = [self.string length];
+        }
+        
+        
     }
     return self.scanLocation>startLocation;
+    
+ }
+
+
+
+-(BOOL)scanRFC2822EmailAddressIntoDisplayName:(NSString**) displayName localName:(NSString**) localName domain:(NSString**)domain error:(NSError**)error{
+    return [self scanRFC2822EmailAddressIntoDisplayName:displayName localName:localName domain:domain invalid:nil error:error];
 }
 
 @end

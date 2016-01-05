@@ -108,5 +108,18 @@
     return theSet;
 }
 
++(NSCharacterSet*)rfc2822DomainDotAtomTextSet{
+    // edge case to allow the use of @ in domainNames (illegal as it is)
+    // will parse emails like like smorr@indev.ca@foo@bar --> localname:smorr  domain:indev.ca@foo@bar
+    static NSCharacterSet * theSet= nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet * mutableSet = [NSMutableCharacterSet alphanumericCharacterSet];//NO_WS_CTL
+        [mutableSet addCharactersInString:@"!#$%&'*+-/=?^_`{|}~.@"];// nb. same as atom with '.'
+        theSet= [NSCharacterSet characterSetWithBitmapRepresentation:[mutableSet bitmapRepresentation]];
+    });
+    return theSet;
+}
+
 
 @end

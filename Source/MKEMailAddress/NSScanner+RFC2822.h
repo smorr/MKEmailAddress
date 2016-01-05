@@ -118,4 +118,10 @@ typedef NS_ENUM(NSInteger, EmailParserErrorCodes){
                                         domain:(NSString**) domain
                                          error:(NSError**) error;
 
+-(BOOL) scanRFC2822EmailAddressIntoDisplayName:(NSString**) displayName
+                                     localName:(NSString**) localName
+                                        domain:(NSString**) domain
+                                       invalid:(NSString**) invalidPart
+                                         error:(NSError**) error;
+
 @end

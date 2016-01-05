@@ -15,4 +15,5 @@
 +(NSCharacterSet*)rfc2822ExtendedQTextSet; // QTextSet + all chars 128...255
 +(NSCharacterSet*)rfc2822atomTextSet;   // valid characters for an atom unit
 +(NSCharacterSet*)rfc2822dotAtomTextSet; // valid characters for a dotAtom unit
++(NSCharacterSet*)rfc2822DomainDotAtomTextSet;  //adds @ to dotAtomTextSet
 @end
