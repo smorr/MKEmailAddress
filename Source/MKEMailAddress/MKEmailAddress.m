@@ -38,15 +38,17 @@
 
 -(instancetype) initWithCommentedAddress:(NSString*)commentedAddress{
     self = [self init];
-    NSScanner * scanner = [NSScanner scannerWithString:commentedAddress];
-    NSString * displayName= nil;
-    NSString * userName = nil;
-    NSString * domain = nil;
-    NSError * error = nil;
-    [scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error];
-    self.addressComment = displayName;
-    self.userName = userName;
-    self.domain = domain;
+    if (commentedAddress) {
+        NSScanner * scanner = [NSScanner scannerWithString:commentedAddress];
+        NSString * displayName= nil;
+        NSString * userName = nil;
+        NSString * domain = nil;
+        NSError * error = nil;
+        [scanner scanRFC2822EmailAddressIntoDisplayName:&displayName localName:&userName domain:&domain error:&error];
+        self.addressComment = displayName;
+        self.userName = userName;
+        self.domain = domain;
+    }
     return self;
     
 }
