@@ -20,10 +20,147 @@
 
 
 @implementation NSString (MimeEncoding)
-+ (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
+
+
++ (NSString*) mimeEncodedHeaderforKey:(NSString*) headerKey value:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
+
     NSStringEncoding attemptedEncoding = encoding;
     
    if (![string canBeConvertedToEncoding:attemptedEncoding]) {
+        attemptedEncoding = 0;
+        if([string canBeConvertedToEncoding:NSISOLatin2StringEncoding]){
+            attemptedEncoding = NSISOLatin2StringEncoding;
+        }
+        else if ([string canBeConvertedToEncoding:NSUTF8StringEncoding]){
+            attemptedEncoding = NSUTF8StringEncoding;
+        }
+        else if ([string canBeConvertedToEncoding:NSUTF16StringEncoding]){
+            attemptedEncoding = NSUTF16StringEncoding;
+        }
+    }
+    if (attemptedEncoding){
+         NSString * encodedString = [string stringByAddingPercentEscapesUsingEncoding:attemptedEncoding];
+        
+        if (!encodedString){
+            attemptedEncoding = NSISOLatin1StringEncoding;
+            encodedString = [string stringByAddingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
+        }
+        
+        if (!encodedString){
+            attemptedEncoding = NSISOLatin2StringEncoding;
+            encodedString = [string stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
+        }
+        
+        if (!encodedString){
+            attemptedEncoding = NSUTF8StringEncoding;
+            encodedString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+        
+        if (!encodedString){
+            attemptedEncoding = NSUTF16StringEncoding;
+            encodedString = [string stringByAddingPercentEscapesUsingEncoding:NSUTF16StringEncoding];
+        }
+        
+        NSString * encodingName = nil;
+        switch(attemptedEncoding){
+            case NSISOLatin1StringEncoding:
+                encodingName=@"iso-8859-1";
+                break;
+            case NSISOLatin2StringEncoding:
+                encodingName=@"iso-8859-2";
+                break;
+            case NSUTF8StringEncoding:
+                encodingName=@"utf-8";
+                break;
+            case NSUTF16StringEncoding:
+                encodingName=@"utf-16";
+                break;
+            default:
+                encodedString=nil;
+                
+        }
+
+        if (!encodedString) {
+            if (usedEncoding) *usedEncoding= 0;
+            return nil;
+        }
+        
+        if (usedEncoding) *usedEncoding = attemptedEncoding;
+        
+        // this needs to be vastly improved to make sure all punctualion is properly encoded.
+        NSMutableCharacterSet * charSet = [[NSCharacterSet letterCharacterSet] mutableCopy];
+        [charSet formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
+        [charSet addCharactersInString:@"%"];
+        encodedString  = [encodedString stringByAddingPercentEncodingWithAllowedCharacters:charSet];
+        
+        encodedString = [encodedString stringByReplacingOccurrencesOfString:@"%20" withString:@"_"];
+        encodedString = [encodedString stringByReplacingOccurrencesOfString:@"%" withString:@"="];
+        if (encodingName){
+           
+            // string needs to be broken up into different mime words if length exceeds 76 char
+            
+            NSMutableArray * lines = [NSMutableArray array];
+            NSUInteger curPosition = 0;
+            NSUInteger lineStart = 0;
+            
+            NSString * linePrefix =nil;
+            if (headerKey){
+                linePrefix=[NSString stringWithFormat:@"%@: =?%@?Q?",headerKey,encodingName]; // note no leading space on first line.
+            }
+            else{
+                linePrefix=[NSString stringWithFormat:@"=?%@?Q?",encodingName]; // note no leading space on first line.
+            }
+            NSString * currentLine = nil;
+            NSUInteger maxLength = 70;
+            while(curPosition<=encodedString.length){
+                
+                currentLine = [NSString stringWithFormat:@"%@%@?=",linePrefix,[encodedString substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart))]];
+                if (curPosition<encodedString.length){
+                    unichar c = [encodedString characterAtIndex:curPosition]; // ok to use character size of 1 as string should be all 7bit ascii
+                    if (c=='='){
+                        if (currentLine.length>=(maxLength-3)){                         // need to allow space for =xx?=\r\n
+                            //start a new line
+                            [lines addObject:currentLine];
+                            lineStart=curPosition; // do not advance position as the = will need to be part of new line.
+                            linePrefix= [NSString stringWithFormat:@" =?%@?Q?",encodingName]; // note leading space is needed
+                        }
+                        else{
+                            // add the =xx to the current line and advance the position by 3
+                            curPosition++;
+                        }
+                    }
+                    else{
+                         if (currentLine.length>=(maxLength)){
+                            [lines addObject:currentLine];
+                             lineStart=curPosition; // do not advance position as the = will need to be part of new line.
+                             linePrefix= [NSString stringWithFormat:@" =?%@?Q?",encodingName]; // note leading space is needed
+                         }
+                         else{
+                             curPosition++;
+                         }
+                    }
+                }
+                else {
+                  break;  
+                }
+                
+            }
+            [lines addObject:currentLine];
+            
+           return [lines componentsJoinedByString:@"\r\n"];;
+        }
+     }
+    
+    NSData * dataFromString = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSString * base64String = [dataFromString base64EncodedStringWithOptions:0];
+    if (usedEncoding) *usedEncoding = NSUTF8StringEncoding;
+    return [NSString stringWithFormat:@"=?utf-8?B?%@?=",base64String];
+}
+
++ (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
+    NSStringEncoding attemptedEncoding = encoding;
+    
+    if (![string canBeConvertedToEncoding:attemptedEncoding]) {
         attemptedEncoding = 0;
         if([string canBeConvertedToEncoding:NSISOLatin2StringEncoding]){
             attemptedEncoding = NSISOLatin2StringEncoding;
@@ -42,30 +179,31 @@
         NSString * encodingName = nil;
         switch(attemptedEncoding){
             case NSISOLatin1StringEncoding:
-                    encodingName=@"iso-8859-1";
-                    break;
+                encodingName=@"iso-8859-1";
+                break;
             case NSISOLatin2StringEncoding:
-                    encodingName=@"iso-8859-2";
-                    break;
+                encodingName=@"iso-8859-2";
+                break;
             case NSUTF8StringEncoding:
-                    encodingName=@"utf-8";
-                    break;
+                encodingName=@"utf-8";
+                break;
             case NSUTF16StringEncoding:
-                    encodingName=@"utf-16";
-                    break;
+                encodingName=@"utf-16";
+                break;
         }
         if (encodingName){
             if (usedEncoding) *usedEncoding = attemptedEncoding;
             // string needs to be broken up into different mime words if length exceeds 76 char
             return [NSString stringWithFormat:@"=?%@?Q?%@?=",encodingName,encodedString];
         }
-     }
+    }
     
     NSData * dataFromString = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSString * base64String = [dataFromString base64EncodedStringWithOptions:0];
     if (usedEncoding) *usedEncoding = NSUTF8StringEncoding;
     return [NSString stringWithFormat:@"=?utf-8?B?%@?=",base64String];
 }
+
 
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word {
     // Example: =?iso-8859-1?Q?=A1Hola,_se=F1or!?=
