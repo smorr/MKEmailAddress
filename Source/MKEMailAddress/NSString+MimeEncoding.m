@@ -18,6 +18,7 @@
 #import "NSString+MimeEncoding.h"
 #import "NSData+MimeWordDecoding.h"
 
+static const NSUInteger kMaxHeaderLineLength = 70;
 
 @implementation NSString (MimeEncoding)
 
@@ -105,47 +106,43 @@
             
             NSString * linePrefix =nil;
             if (headerKey){
-                linePrefix=[NSString stringWithFormat:@"%@: =?%@?Q?",headerKey,encodingName]; // note no leading space on first line.
+                linePrefix=[NSString stringWithFormat:@"%@: =?%@?Q?",headerKey,encodingName]; // first part is for header key
             }
             else{
                 linePrefix=[NSString stringWithFormat:@"=?%@?Q?",encodingName]; // note no leading space on first line.
             }
+            
+            NSString * subsequentLinePrefix = [NSString stringWithFormat:@" =?%@?Q?",encodingName];// note leading space is needed
+            NSString * lineSuffix =@"?=";
+            
             NSString * currentLine = nil;
-            NSUInteger maxLength = 70;
-            while(curPosition<=encodedString.length){
+            
+            while( YES ){
+                NSInteger currLineLength = linePrefix.length + (curPosition-lineStart) + lineSuffix.length;
                 
-                currentLine = [NSString stringWithFormat:@"%@%@?=",linePrefix,[encodedString substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart))]];
                 if (curPosition<encodedString.length){
                     unichar c = [encodedString characterAtIndex:curPosition]; // ok to use character size of 1 as string should be all 7bit ascii
-                    if (c=='='){
-                        if (currentLine.length>=(maxLength-3)){                         // need to allow space for =xx?=\r\n
-                            //start a new line
-                            [lines addObject:currentLine];
-                            lineStart=curPosition; // do not advance position as the = will need to be part of new line.
-                            linePrefix= [NSString stringWithFormat:@" =?%@?Q?",encodingName]; // note leading space is needed
-                        }
-                        else{
-                            // add the =xx to the current line and advance the position by 3
-                            curPosition++;
-                        }
+                    NSInteger maxLengthForCurrentLine = kMaxHeaderLineLength;
+                    if (c == '=') maxLengthForCurrentLine = kMaxHeaderLineLength -3 ; // headers line cannot break =xx encoding, so shorten the max length by 3 chars
+                    
+                    if (currLineLength>=maxLengthForCurrentLine){
+                        currentLine = [NSString stringWithFormat:@"%@%@%@",linePrefix,[encodedString substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart))],lineSuffix];
+                        [lines addObject:currentLine];
+                        lineStart=curPosition;
+                        linePrefix= subsequentLinePrefix;
                     }
                     else{
-                         if (currentLine.length>=(maxLength)){
-                            [lines addObject:currentLine];
-                             lineStart=curPosition; // do not advance position as the = will need to be part of new line.
-                             linePrefix= [NSString stringWithFormat:@" =?%@?Q?",encodingName]; // note leading space is needed
-                         }
-                         else{
-                             curPosition++;
-                         }
+                        curPosition++;
                     }
                 }
                 else {
-                  break;  
+                    currentLine = [NSString stringWithFormat:@"%@%@?=",linePrefix,[encodedString substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart))]];
+                    [lines addObject:currentLine];
+                    break;
                 }
                 
             }
-            [lines addObject:currentLine];
+            
             
            return [lines componentsJoinedByString:@"\r\n"];;
         }
