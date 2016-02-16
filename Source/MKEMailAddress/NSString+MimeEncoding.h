@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (MimeEncoding)
-+ (NSString*) mimeEncodedHeaderforKey:(NSString*) headerKey value:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding;
 
 + (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding;
+
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word;
--(NSString*)decodedMimeEncodedString;
+- (NSString*) decodedMimeEncodedString;
 
 @end
 
