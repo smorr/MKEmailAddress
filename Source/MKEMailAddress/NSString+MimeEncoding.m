@@ -21,10 +21,9 @@
 
 @implementation NSString (MimeEncoding)
 
-
-+ (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
-    NSStringEncoding attemptedEncoding = encoding;
++ (NSString*) quotedPrintableStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding{
     
+    NSStringEncoding attemptedEncoding = preferredEncoding;
     if (![string canBeConvertedToEncoding:attemptedEncoding]) {
         attemptedEncoding = 0;
         if([string canBeConvertedToEncoding:NSISOLatin2StringEncoding]){
@@ -37,36 +36,51 @@
             attemptedEncoding = NSUTF16StringEncoding;
         }
     }
+    if (usedEncoding) *usedEncoding = attemptedEncoding;
     if (attemptedEncoding){
-        NSString * encodedString = [string stringByAddingPercentEscapesUsingEncoding:attemptedEncoding];
-        encodedString = [encodedString stringByReplacingOccurrencesOfString:@"%" withString:@"="];
-        encodedString = [encodedString stringByReplacingOccurrencesOfString:@" " withString:@"=20"];
-        NSString * encodingName = nil;
-        switch(attemptedEncoding){
-            case NSISOLatin1StringEncoding:
-                encodingName=@"iso-8859-1";
-                break;
-            case NSISOLatin2StringEncoding:
-                encodingName=@"iso-8859-2";
-                break;
-            case NSUTF8StringEncoding:
-                encodingName=@"utf-8";
-                break;
-            case NSUTF16StringEncoding:
-                encodingName=@"utf-16";
-                break;
-        }
-        if (encodingName){
-            if (usedEncoding) *usedEncoding = attemptedEncoding;
+        // make it quotedPrintable
             // string needs to be broken up into different mime words if length exceeds 76 char
+        static NSCharacterSet * allowedCharSet = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSMutableCharacterSet * charSet = [[NSCharacterSet letterCharacterSet] mutableCopy];
+            [charSet formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
+            [charSet addCharactersInString:@"%"];
+            allowedCharSet = [NSCharacterSet characterSetWithBitmapRepresentation:[charSet bitmapRepresentation]];
+        });
+        NSString * encodedString = [string stringByAddingPercentEscapesUsingEncoding:attemptedEncoding];
+        NSString * quotedPrintable  = [encodedString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
+        
+        quotedPrintable = [quotedPrintable stringByReplacingOccurrencesOfString:@"%20" withString:@"_"];
+        quotedPrintable = [quotedPrintable stringByReplacingOccurrencesOfString:@"%" withString:@"="];
+        return quotedPrintable;
+    }
+    else{
+        return nil;
+    }
+}
+
++ (NSString*) MKcharSetNameForEncoding:(NSStringEncoding)encoding{
+    CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
+    return [(NSString*)CFStringConvertEncodingToIANACharSetName(cfEncoding) lowercaseString] ;
+}
+
++ (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
+    
+    NSStringEncoding myUsedEncoding = 0;
+    NSString * encodedString = [self quotedPrintableStringWithString:string preferredEncoding:encoding encodingUsed:&myUsedEncoding];
+    
+    if (usedEncoding) *usedEncoding = myUsedEncoding;
+    
+    if (encodedString && myUsedEncoding){
+        NSString * encodingName = [NSString MKcharSetNameForEncoding:myUsedEncoding];
+        if (encodingName){
             return [NSString stringWithFormat:@"=?%@?Q?%@?=",encodingName,encodedString];
         }
     }
-    
-    NSData * dataFromString = [string dataUsingEncoding:NSUTF8StringEncoding];
-    NSString * base64String = [dataFromString base64EncodedStringWithOptions:0];
-    if (usedEncoding) *usedEncoding = NSUTF8StringEncoding;
-    return [NSString stringWithFormat:@"=?utf-8?B?%@?=",base64String];
+    if (usedEncoding) *usedEncoding = 0;
+    return nil;
+    // if we are here, it is either no 
 }
 
 
