@@ -29,8 +29,8 @@
 
 
 
-/* Method +quotedPrintableStringWithString:preferredEncoding:encodingUsed:
-    returns the quotedPrintableStringWithout the Mime Type Envelope.
+/* Method +qEncodedStringWithString:preferredEncoding:encodingUsed:
+    returns the quotedPrintableStringWithout the Mime Type Envelope.  See ( https://tools.ietf.org/html/rfc2047#section-4.2 )
  
    eg [NSString quotedPrintableStringWithString:@"Garçon" preferredEncoding:NSISOLatin1StringEncoding encodingUsed:0] 
         returns @"Gar=E7on"
@@ -43,7 +43,9 @@
 */
 
 
-+ (NSString*) quotedPrintableStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding;
++ (NSString*) qEncodedStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding;
+
+
 + (NSString*)quotedPrintableStringForPlainTextBody:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding;
 
 + (NSString*) MKcharSetNameForEncoding:(NSStringEncoding)encoding;

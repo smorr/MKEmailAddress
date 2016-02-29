@@ -22,7 +22,7 @@ const NSInteger kQuotedPrintableLineLength = 76;
 
 @implementation NSString (MimeEncoding)
 
-+ (NSString*) quotedPrintableStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding{
++ (NSString*) qEncodedStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding{
     
     NSStringEncoding attemptedEncoding = preferredEncoding;
     if (![string canBeConvertedToEncoding:attemptedEncoding]) {
@@ -36,25 +36,46 @@ const NSInteger kQuotedPrintableLineLength = 76;
         else if ([string canBeConvertedToEncoding:NSUTF16StringEncoding]){
             attemptedEncoding = NSUTF16StringEncoding;
         }
+        else{
+            CFStringEncoding smallestEncoding = CFStringGetSmallestEncoding((CFStringRef)string);
+            if (smallestEncoding){
+                NSStringEncoding nsSmallestEncoding = CFStringConvertEncodingToNSStringEncoding(smallestEncoding);
+                if (nsSmallestEncoding && [string canBeConvertedToEncoding:nsSmallestEncoding]){
+                    attemptedEncoding = nsSmallestEncoding;
+                }
+            }
+        }
     }
     if (usedEncoding) *usedEncoding = attemptedEncoding;
     if (attemptedEncoding){
         // make it quotedPrintable
             // string needs to be broken up into different mime words if length exceeds 76 char
-        static NSCharacterSet * allowedCharSet = nil;
+        
+        NSMutableString * muQuotedPrintableString = [NSMutableString string];
+        
+        NSData * encodedData = [string dataUsingEncoding:attemptedEncoding];
+        NSUInteger len = encodedData.length;
+        const char * bytesBuffer = [encodedData bytes];
+        
+        static NSMutableCharacterSet * charSet = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            NSMutableCharacterSet * charSet = [[NSCharacterSet letterCharacterSet] mutableCopy];
-            [charSet formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
-            [charSet addCharactersInString:@"%\r\n"];
-            allowedCharSet = [NSCharacterSet characterSetWithBitmapRepresentation:[charSet bitmapRepresentation]];
+            charSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(32, 94)]; //ascii 32-126
+            [charSet removeCharactersInString:@" _=?"];
         });
-        NSString * encodedString = [string stringByAddingPercentEscapesUsingEncoding:attemptedEncoding];
-        NSString * quotedPrintable  = [encodedString stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
-        
-        quotedPrintable = [quotedPrintable stringByReplacingOccurrencesOfString:@"%20" withString:@"_"];
-        quotedPrintable = [quotedPrintable stringByReplacingOccurrencesOfString:@"%" withString:@"="];
-        return quotedPrintable;
+        for (int i = 0; i <len; i++){
+            unsigned char currentChar =bytesBuffer[i];
+            if ([charSet characterIsMember:currentChar]){
+                [muQuotedPrintableString appendFormat:@"%c",currentChar];
+            }
+            else if (currentChar==0x20){ //space
+                [muQuotedPrintableString appendString:@"_"]; // convert spaces to _
+            }
+            else{
+                [muQuotedPrintableString appendFormat:@"=%02X", currentChar];
+            }
+        }
+        return [NSString stringWithString:muQuotedPrintableString];
     }
     else{
         return nil;
@@ -102,9 +123,6 @@ const NSInteger kQuotedPrintableLineLength = 76;
             unsigned char currentChar =bytesBuffer[i];
             if ([charSet characterIsMember:currentChar]){
                 [muQuotedPrintableString appendFormat:@"%c",currentChar];
-            }
-            else if (currentChar == 0x0f){ // ignoreShiftIn
-                continue;
             }
             else{
                 [muQuotedPrintableString appendFormat:@"=%02X", currentChar];
@@ -190,7 +208,7 @@ const NSInteger kQuotedPrintableLineLength = 76;
 + (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
     
     NSStringEncoding myUsedEncoding = 0;
-    NSString * encodedString = [self quotedPrintableStringWithString:string preferredEncoding:encoding encodingUsed:&myUsedEncoding];
+    NSString * encodedString = [self qEncodedStringWithString:string preferredEncoding:encoding encodingUsed:&myUsedEncoding];
     
     if (usedEncoding) *usedEncoding = myUsedEncoding;
     
