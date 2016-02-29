@@ -18,6 +18,7 @@
 #import "NSString+MimeEncoding.h"
 #import "NSData+MimeWordDecoding.h"
 
+const NSInteger kQuotedPrintableLineLength = 76;
 
 @implementation NSString (MimeEncoding)
 
@@ -45,7 +46,7 @@
         dispatch_once(&onceToken, ^{
             NSMutableCharacterSet * charSet = [[NSCharacterSet letterCharacterSet] mutableCopy];
             [charSet formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
-            [charSet addCharactersInString:@"%"];
+            [charSet addCharactersInString:@"%\r\n"];
             allowedCharSet = [NSCharacterSet characterSetWithBitmapRepresentation:[charSet bitmapRepresentation]];
         });
         NSString * encodedString = [string stringByAddingPercentEscapesUsingEncoding:attemptedEncoding];
@@ -60,10 +61,131 @@
     }
 }
 
++(NSString*)quotedPrintableStringForPlainTextBody:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding {
+    NSString * quotedPrintable= nil;
+        
+    NSStringEncoding attemptedEncoding = preferredEncoding;
+    if (![string canBeConvertedToEncoding:attemptedEncoding]) {
+        attemptedEncoding = 0;
+        if([string canBeConvertedToEncoding:NSISOLatin2StringEncoding]){
+            attemptedEncoding = NSISOLatin2StringEncoding;
+        }
+        else if ([string canBeConvertedToEncoding:NSUTF8StringEncoding]){
+            attemptedEncoding = NSUTF8StringEncoding;
+        }
+        else if ([string canBeConvertedToEncoding:NSUTF16StringEncoding]){
+            attemptedEncoding = NSUTF16StringEncoding;
+        }
+    }
+    if (usedEncoding) *usedEncoding = attemptedEncoding;
+    if (attemptedEncoding){
+        
+        // encode the string into a NSData object with desired encoding
+        // and output the dataObject as NSString object with non allowed characters escaped with =02X format.
+        NSMutableString * muQuotedPrintableString = [NSMutableString string];
+        
+        NSData * encodedData = [string dataUsingEncoding:attemptedEncoding];
+        NSUInteger len = encodedData.length;
+        const char * bytesBuffer = [encodedData bytes];
+        
+        static NSMutableCharacterSet * charSet = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            charSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(32, 28)];
+            [charSet addCharactersInRange:NSMakeRange(62, 64)];
+            [charSet addCharactersInString:@"\r\n"];
+            [charSet removeCharactersInString:@"!\"#$@[\\]^`{|}~"]; //EBCDIC characters  should be encoded for passing through
+                // potential gateways.
+
+        });
+        for (int i = 0; i <len; i++){
+            unsigned char currentChar =bytesBuffer[i];
+            if ([charSet characterIsMember:currentChar]){
+                [muQuotedPrintableString appendFormat:@"%c",currentChar];
+            }
+            else if (currentChar == 0x0f){ // ignoreShiftIn
+                continue;
+            }
+            else{
+                [muQuotedPrintableString appendFormat:@"=%02X", currentChar];
+            }
+        }
+       // free(bytesBuffer);
+        
+        quotedPrintable = muQuotedPrintableString;
+    }
+    
+    if (!quotedPrintable) return nil;
+    
+    //wrap the quotedPrintableString at 76 characters according to RFC 2045 (https://tools.ietf.org/html/rfc2045#section-6.7 )
+    
+    NSMutableArray * lines = [NSMutableArray array];
+    NSUInteger curPosition = 0;
+    NSUInteger lineStart = 0;
+    NSString * lineSuffix = @"=";
+    while( YES ){
+        NSInteger currLineLength =  (curPosition - lineStart) + lineSuffix.length;
+        
+        if (curPosition < quotedPrintable.length){
+            unichar c = [quotedPrintable characterAtIndex:curPosition]; // ok to use character size of 1 as string should be all 7bit ascii
+            NSInteger maxLengthForCurrentLine = kQuotedPrintableLineLength;
+            
+            // see if the current characer is part 1 of a \r\n sequence
+            // in which case finish the line and add it to the array lines, then continue.
+            
+            if (c == '\r' && curPosition+1 < quotedPrintable.length && [quotedPrintable characterAtIndex:curPosition+1]=='\n'){
+                NSString * currentLine = [NSString stringWithFormat:@"%@",[quotedPrintable substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart)-1)]];
+                [lines addObject:currentLine];
+                curPosition+=2;
+                lineStart =curPosition;
+                continue;
+            }
+            
+            if (c == '=') maxLengthForCurrentLine = kQuotedPrintableLineLength - 3 ; // headers line cannot break =xx encoding, so shorten the max length by 3 chars
+            
+            if (currLineLength >= maxLengthForCurrentLine){
+                
+                NSString * currentLine = [NSString stringWithFormat:@"%@%@",[quotedPrintable substringWithRange:NSMakeRange(lineStart, (curPosition-lineStart))],lineSuffix];
+                [lines addObject:currentLine];
+                lineStart = curPosition;
+            }
+            else{
+                curPosition++;
+            }
+        }
+        else {
+            NSString * currentLine = [NSString stringWithFormat:@"%@",[quotedPrintable substringWithRange:NSMakeRange(lineStart, (curPosition - lineStart))]];
+            // if the last line ends in a space
+            if ([currentLine characterAtIndex:currentLine.length-1] == ' '){
+                if (currentLine.length == kQuotedPrintableLineLength){
+                    currentLine = [string stringByReplacingCharactersInRange:NSMakeRange(kQuotedPrintableLineLength-1, 1) withString:@"="];
+                    [lines addObject:currentLine];
+                    [lines addObject:@" ="];
+                }
+                else{
+                    currentLine = [currentLine  stringByAppendingString:@"="];
+                    [lines addObject:currentLine];
+                }
+            }
+            else{
+                [lines addObject:currentLine];
+            }
+            break;
+        }
+    }
+    return [lines componentsJoinedByString:@"\r\n"];;
+}
+
 + (NSString*) MKcharSetNameForEncoding:(NSStringEncoding)encoding{
     CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(encoding);
     return [(NSString*)CFStringConvertEncodingToIANACharSetName(cfEncoding) lowercaseString] ;
 }
+
++ (NSStringEncoding) MKencodingForCharSetName:(NSString*)charSet{
+    CFStringEncoding cfEncoding = CFStringConvertIANACharSetNameToEncoding((CFStringRef)charSet);
+    return CFStringConvertEncodingToNSStringEncoding(cfEncoding);
+}
+
 
 + (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
     

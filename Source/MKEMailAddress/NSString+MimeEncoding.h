@@ -44,8 +44,10 @@
 
 
 + (NSString*) quotedPrintableStringWithString:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding;
++ (NSString*)quotedPrintableStringForPlainTextBody:(NSString *)string preferredEncoding:(NSStringEncoding)preferredEncoding encodingUsed:(NSStringEncoding *)usedEncoding;
 
 + (NSString*) MKcharSetNameForEncoding:(NSStringEncoding)encoding;
++ (NSStringEncoding) MKencodingForCharSetName:(NSString*)charSet;
 
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word;
 - (NSString*) decodedMimeEncodedString;
