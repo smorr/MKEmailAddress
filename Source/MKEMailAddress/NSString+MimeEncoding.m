@@ -112,10 +112,9 @@ const NSInteger kQuotedPrintableLineLength = 76;
         static NSMutableCharacterSet * charSet = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            charSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(32, 28)];
-            [charSet addCharactersInRange:NSMakeRange(62, 64)];
+            charSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(32, 94)]; //ascii 32-126
             [charSet addCharactersInString:@"\r\n"];
-            [charSet removeCharactersInString:@"!\"#$@[\\]^`{|}~"]; //EBCDIC characters  should be encoded for passing through
+            [charSet removeCharactersInString:@"=!\"#$@[\\]^`{|}~"]; //EBCDIC characters  should be encoded for passing through
                 // potential gateways.
 
         });
