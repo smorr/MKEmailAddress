@@ -40,6 +40,9 @@
 -(instancetype) initWithCommentedAddress:(NSString*)commentedAddress;
 +(NSString*)rfc2822RepresentationForAddresses:(MKEmailAddressArray *)addresses;
 +(MKEmailAddressArray*)emailAddressesFromHeaderValue:(NSString*)headerValue;
++(MKEmailAddress*) addressWithComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart;
+
+
 -(NSString*)rfc2822Representation;
 -(BOOL)isValid;
 @end

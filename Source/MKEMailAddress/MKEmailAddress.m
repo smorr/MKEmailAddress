@@ -18,6 +18,14 @@
 
 
 @implementation MKEmailAddress
+
+
++(MKEmailAddress*) addressWithComment:(NSString*)commentPart userName:(NSString*) userPart domain:(NSString*)domainPart{
+    return [[[self class] alloc] initWithAddressComment:commentPart
+                                               userName:userPart
+                                                 domain:domainPart];
+    
+}
 -(instancetype) initWithInvalidHeaderString:(NSString*)headerString{
     self =[self init];
     if (self){
