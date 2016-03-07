@@ -365,8 +365,12 @@ const NSInteger kQuotedPrintableLineLength = 76;
                 // so convert the accumulated data to a string (using its encoding) and append to ongoing string.
                 
                 NSString * decodedChunk =  [[NSString alloc] initWithData:fullDecodedData encoding:dataEncoding];
-                [decodedString appendString: decodedChunk];
-                
+                if (decodedChunk){
+                    [decodedString appendString: decodedChunk];
+                }
+                else{
+                    NSLog(@"problem decoding MimeString: %@",self);
+                }
                 // and start accumulating data again with new encoding.
                 dataEncoding = wordEncoding;
                 [fullDecodedData setData:decodedWordData];
