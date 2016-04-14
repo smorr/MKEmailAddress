@@ -354,7 +354,17 @@ const NSInteger kQuotedPrintableLineLength = 76;
         if (mimeEnd != NSNotFound){
             NSString * mimeWord = [[scanner string] substringWithRange:NSMakeRange(mimeStart, mimeEnd-mimeStart)];
             NSStringEncoding wordEncoding = 0;
-            NSData * decodedWordData = [NSData dataForMimeEncodedWord:mimeWord usedEncoding:&wordEncoding];
+            NSData * decodedWordData = nil;
+            @try {
+                decodedWordData = [NSData dataForMimeEncodedWord:mimeWord usedEncoding:&wordEncoding];
+            }
+            @catch (NSException *exception) {
+                NSLog (@"problem parsing MimeEncodedWord: %@",mimeWord);
+            }
+            @finally {
+  
+            }
+            
             if (dataEncoding==0){
                 // this is first pass -- just append the data;
                 dataEncoding = wordEncoding;

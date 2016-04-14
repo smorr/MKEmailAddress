@@ -35,29 +35,29 @@
     if (usedEncoding) * usedEncoding = encoding;
     NSString *encodedString;
     
-    if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"Q?"] == NSOrderedSame)
-    {
+    if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"Q?"] == NSOrderedSame){
         // quoted-printable
+        encodedString = [word substringFromIndex:i+3];
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
         NSMutableData *binaryString = [[NSMutableData alloc] initWithLength:encodedString.length] ;
         unsigned char *binaryBytes = (unsigned char*)[binaryString mutableBytes];
         int j = 0;
         char h;
-        
-        for (i = 0; i < encodedString.length; i++)
-        {
+        i = 0;
+        while (i < encodedString.length){
+            
             unichar ch = [encodedString characterAtIndex:i];
-            if (ch == (unichar)'_')
+            if (ch == (unichar)'_'){
                 binaryBytes[j++] = ' ';
-            else if (ch == (unichar)'=')
-            {
-                if (i >= encodedString.length - 2)
-                    return nil;
-                
+            }
+            else if (ch == (unichar)'=') {
                 unsigned char val = 0;
                 
                 // high-order hex char
-                h = [encodedString characterAtIndex:++i];
+                ++i;
+                if (i >= encodedString.length) return nil;
+                
+                h = [encodedString characterAtIndex:i];
                 if ((h >= '0') && (h <= '9'))
                     val += ((int)(h - '0')) << 4;
                 else if ((h >= 'A') && (h <= 'F'))
@@ -66,8 +66,12 @@
                     val += ((int)(h + 10 - 'a')) << 4;
                 else
                     return nil;
+                
                 // low-order hex char
-                h = [encodedString characterAtIndex:++i];
+                ++i;
+                if (i >= encodedString.length) return nil;
+
+                h = [encodedString characterAtIndex:i];
                 if ((h >= '0') && (h <= '9'))
                     val += (int)(h - '0');
                 else if ((h >= 'A') && (h <= 'F'))
@@ -79,10 +83,13 @@
                 
                 binaryBytes[j++] = val;
             }
-            else if (ch < 256)
+            else if (ch < 256){
                 binaryBytes[j++] = ch;
-            else
+            }
+            else{
                 return nil;
+            }
+            i++;
         }
         
         [binaryString setLength:j];
