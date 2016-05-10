@@ -37,7 +37,7 @@
     
     if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"Q?"] == NSOrderedSame){
         // quoted-printable
-        encodedString = [word substringFromIndex:i+3];
+        //encodedString = [word substringFromIndex:i+3];
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
         NSMutableData *binaryString = [[NSMutableData alloc] initWithLength:encodedString.length] ;
         unsigned char *binaryBytes = (unsigned char*)[binaryString mutableBytes];
